@@ -13,7 +13,7 @@ Download to `pretrained/VideoLLaMA2`.
 ## Video-to-Audio
 
 ### MMAudio
-The models will be downloaded automatically when you run the demo script. MD5 checksums are provided in `mmaudio/utils/download_utils.py`.
+<!-- The models will be downloaded automatically when you run the demo script. MD5 checksums are provided in `mmaudio/utils/download_utils.py`. -->
 The models are also available at https://huggingface.co/hkchengrex/MMAudio/tree/main
 
 | Model    | Download link | File size |
@@ -28,9 +28,9 @@ The models are also available at https://huggingface.co/hkchengrex/MMAudio/tree/
 | 44.1kHz VAE |<a href="https://github.com/hkchengrex/MMAudio/releases/download/v0.1/v1-44.pth">v1-44.pth</a> | 1.2G | 
 | Synchformer visual encoder |<a href="https://github.com/hkchengrex/MMAudio/releases/download/v0.1/synchformer_state_dict.pth">synchformer_state_dict.pth</a> | 907M |
 
-To run the model, you need four components: a flow prediction network, visual feature extractors (Synchformer and CLIP, CLIP will be downloaded automatically), a VAE, and a vocoder. VAEs and vocoders are specific to the sampling rate (16kHz or 44.1kHz) and not model sizes.
+<!-- To run the model, you need four components: a flow prediction network, visual feature extractors (Synchformer and CLIP, CLIP will be downloaded automatically), a VAE, and a vocoder. VAEs and vocoders are specific to the sampling rate (16kHz or 44.1kHz) and not model sizes.
 The 44.1kHz vocoder will be downloaded automatically.
-The `_v2` model performs worse in benchmarking (e.g., in  Fréchet distance), but, in my experience, generalizes better to new data.
+The `_v2` model performs worse in benchmarking (e.g., in  Fréchet distance), but, in my experience, generalizes better to new data. -->
 
 The expected directory structure (full):
 
@@ -50,7 +50,7 @@ pretrained/MMAudio
 └── ...
 ```
 
-The expected directory structure (minimal, for the recommended model only):
+The expected directory structure (minimal, for the `mmaudio_large_44k` model only):
 
 ```bash
 pretrained/MMAudio
@@ -58,7 +58,7 @@ pretrained/MMAudio
 │   ├── synchformer_state_dict.pth
 │   └── v1-44.pth
 ├── weights
-│   └── mmaudio_large_44k_v2.pth
+│   └── mmaudio_large_44k.pth
 └── ...
 ```
 
@@ -67,16 +67,16 @@ pretrained/MMAudio
 | Model    | Download link | File size |
 | -------- | ------- | ------- |
 | auffusion | <a href="https://huggingface.co/auffusion/auffusion-full-no-adapter">auffusion</a> | ~5G |
-| FoleyCrafter | <a href="https://huggingface.co/ymzhang319/FoleyCrafter"FoleyCrafter</a> | ~8G |
+| FoleyCrafter | <a href="https://huggingface.co/ymzhang319/FoleyCrafter">FoleyCrafter</a> | ~8G |
 
 ```bash
 pretrained/FoleyCrafter
 ├── checkpoints
-│   ├── auffusion
-│   ├── semantic
-│   ├── vocoder
-│   ├── temporal_adapter.ckpt
-│   └── timestamp_detector.pth.tar
+    ├── auffusion
+    ├── semantic
+    ├── vocoder
+    ├── temporal_adapter.ckpt
+    └── timestamp_detector.pth.tar
 
 ```
 
