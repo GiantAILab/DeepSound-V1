@@ -108,9 +108,9 @@ With `demo.py`
 python demo.py \
     --video=<path to video> \
     --prompt "your prompt" \
-    --step1 "mmaudio-l" \
+    --step1 "mmaudio-large-44k" \
     --step2 "cot" \
-    --step3 "bsroformer" \
+    --step3 "bs_roformer" \
     --step4 "neg"
 ```
 
