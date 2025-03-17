@@ -91,13 +91,14 @@ pip install -e .
 (If you encounter the File "setup.py" not found error, upgrade your pip with pip install --upgrade pip) --> 
 
 
-**Pretrained models:**
-
 <!-- The models will be downloaded automatically when you run the demo script. MD5 checksums are provided in `mmaudio/utils/download_utils.py`.
 The models are also available at https://huggingface.co/hkchengrex/MMAudio/tree/main
 See [MODELS.md](docs/MODELS.md) for more details. -->
 
 ## Demo
+
+### Pretrained models
+See [MODELS.md](docs/MODELS.md).
 
 ### Command-line interface
 
