@@ -82,7 +82,7 @@ pretrained/FoleyCrafter
 
 
 
-## Remove over-voice
+## Remove voice-over
 
 ### BS Roformer
 | Model    | Download link | File size |
