@@ -46,7 +46,7 @@ For more results, visit https://hkchengrex.com/MMAudio/video_main.html. -->
 conda create -n deepsound-v1 python=3.10.16 -y
 conda activate deepsound-v1
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118 --upgrade
-cd requirements
+apt-get install -y libgtk-3-dev pkg-config portaudio19-dev
 pip install -e .
 pip install -r reqirments.txt
 ```

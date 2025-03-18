@@ -1,5 +1,4 @@
 # ========= 基础框架 =========
-pytorch-cuda==11.8
 accelerate==0.26.1
 deepspeed==0.13.1
 bitsandbytes==0.43.0
@@ -47,7 +46,8 @@ xformers
 einops==0.8.1
 einops-exts==0.0.4
 rotary_embedding_torch==0.3.5
-segmentation_models_pytorch==0.3.3
+#segmentation_models_pytorch==0.3.3
+segmentation_models_pytorch
 timm==1.0.3                 # 保持与 transformers 一致
 hyper_connections==0.1.11
 

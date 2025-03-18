@@ -26,7 +26,7 @@ class ModelConfig:
     vae_path: Path
     bigvgan_16k_path: Optional[Path]
     mode: str
-    synchformer_ckpt: Path = Path('./ext_weights/synchformer_state_dict.pth')
+    synchformer_ckpt: Path = Path('./pretrained/v2a/mmaudio/ext_weights/synchformer_state_dict.pth')
 
     @property
     def seq_cfg(self) -> SequenceConfig:
@@ -44,28 +44,28 @@ class ModelConfig:
 
 
 small_16k = ModelConfig(model_name='small_16k',
-                        model_path=Path('./weights/mmaudio_small_16k.pth'),
-                        vae_path=Path('./ext_weights/v1-16.pth'),
-                        bigvgan_16k_path=Path('./ext_weights/best_netG.pt'),
+                        model_path=Path('./pretrained/v2a/mmaudio/weights/mmaudio_small_16k.pth'),
+                        vae_path=Path('./pretrained/v2a/mmaudio/ext_weights/v1-16.pth'),
+                        bigvgan_16k_path=Path('./pretrained/v2a/mmaudio/ext_weights/best_netG.pt'),
                         mode='16k')
 small_44k = ModelConfig(model_name='small_44k',
-                        model_path=Path('./weights/mmaudio_small_44k.pth'),
-                        vae_path=Path('./ext_weights/v1-44.pth'),
+                        model_path=Path('./pretrained/v2a/mmaudio/weights/mmaudio_small_44k.pth'),
+                        vae_path=Path('./pretrained/v2a/mmaudio/ext_weights/v1-44.pth'),
                         bigvgan_16k_path=None,
                         mode='44k')
 medium_44k = ModelConfig(model_name='medium_44k',
-                         model_path=Path('./weights/mmaudio_medium_44k.pth'),
-                         vae_path=Path('./ext_weights/v1-44.pth'),
+                         model_path=Path('./pretrained/v2a/mmaudio/weights/mmaudio_medium_44k.pth'),
+                         vae_path=Path('./pretrained/v2a/mmaudio/ext_weights/v1-44.pth'),
                          bigvgan_16k_path=None,
                          mode='44k')
 large_44k = ModelConfig(model_name='large_44k',
-                        model_path=Path('./weights/mmaudio_large_44k.pth'),
-                        vae_path=Path('./ext_weights/v1-44.pth'),
+                        model_path=Path('./pretrained/v2a/mmaudio/weights/mmaudio_large_44k.pth'),
+                        vae_path=Path('./pretrained/v2a/mmaudio/ext_weights/v1-44.pth'),
                         bigvgan_16k_path=None,
                         mode='44k')
 large_44k_v2 = ModelConfig(model_name='large_44k_v2',
-                           model_path=Path('./weights/mmaudio_large_44k_v2.pth'),
-                           vae_path=Path('./ext_weights/v1-44.pth'),
+                           model_path=Path('./pretrained/v2a/mmaudio/weights/mmaudio_large_44k_v2.pth'),
+                           vae_path=Path('./pretrained/v2a/mmaudio/ext_weights/v1-44.pth'),
                            bigvgan_16k_path=None,
                            mode='44k')
 all_model_cfg: dict[str, ModelConfig] = {

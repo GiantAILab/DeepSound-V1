@@ -4,8 +4,8 @@
 ### VideoLLaMA2
 | Model    | Download link | File size |
 | -------- | ------- | ------- |
-| MLLM, step-by-step, CoT | <a href="">MLLM-CoT</a> | ~16G |
-| MLLM, QA | <a href="">MLLM-QA</a> | ~16G |
+| MLLM, step-by-step, CoT | <a href="">MLLM-CoT</a> | ~17G |
+| MLLM, QA | <a href="">MLLM-QA</a> | ~17G |
 
 Download to `pretrained/VideoLLaMA2`.
 
