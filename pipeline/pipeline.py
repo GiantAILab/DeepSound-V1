@@ -1,10 +1,10 @@
 # coding=utf-8
 
-from step0 import Step0
-from step1 import Step1
-from step2 import Step2
-from step3 import Step3
-from step4 import Step4
+from .step0 import Step0
+from .step1 import Step1
+from .step2 import Step2
+from .step3 import Step3
+from .step4 import Step4
 import logging
 import re
 import os
@@ -21,7 +21,7 @@ class Pipeline:
         self.log.setLevel(logging.INFO)
         
 
-    def run(self, video_input, output_dir, mode='s4', postp_mode='rep', prompt='', negative_prompt=''):
+    def run(self, video_input, output_dir, mode='s4', postp_mode='rep', prompt='', negative_prompt='', duration=10):
         step0_resp = self.step0.run(video_input)
         step0_resp_list = re.findall(r'(Step\d:.*?)(?=Step\d:|$)', step0_resp, re.DOTALL)
         step_infos = [step_info.strip().split("\n")[0] for step_info in step0_resp_list]
@@ -33,7 +33,7 @@ class Pipeline:
         for step_info in step_infos:
             self.log.info(f"Start to {step_info}")
             if step_info == 'Step1: Generate audio from video.':
-                step1_audio_path, step1_video_path = self.step1.run(video_input, output_dir, prompt, negative_prompt)
+                step1_audio_path, step1_video_path = self.step1.run(video_input, output_dir, prompt, negative_prompt, duration=duration)
                 step_results["step1_audio_path"] = step1_audio_path
                 step_results["step1_video_path"] = step1_video_path
             elif step_info == 'Step2: Given a video and its generated audio, determine whether the audio contains voice-over.':
@@ -69,7 +69,7 @@ class Pipeline:
                 step_results["final_video_path"] = step_results["step1_video_path"]
                 return step_results
             elif postp_mode == "neg":
-                neg_audio_path, neg_video_path = self.step1.run(video_input, output_dir, prompt, negative_prompt='huamn voice', is_postp=True)
+                neg_audio_path, neg_video_path = self.step1.run(video_input, output_dir, prompt, negative_prompt='huamn voice', duration=duration, is_postp=True)
                 step_results["final_audio_path"] = neg_audio_path
                 step_results["final_video_path"] = neg_video_path
                 return step_results

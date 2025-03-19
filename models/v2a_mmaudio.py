@@ -109,38 +109,38 @@ class V2A_MMAudio:
 
 
 
-def main():
-    # 初始化日志（如果你有 logger.py，推荐只做一次初始化）
-    setup_eval_logging()
+# def main():
+#     # 初始化日志（如果你有 logger.py，推荐只做一次初始化）
+#     setup_eval_logging()
 
-    # 初始化模型
-    v2a_model = V2A_MMAudio(
-        variant="large_44k_v2",     # 这个是你模型的版本名
-        num_steps=25,               # 采样步数
-        seed=42,                    # 随机种子
-        full_precision=False        # 是否使用全精度
-    )
+#     # 初始化模型
+#     v2a_model = V2A_MMAudio(
+#         variant="large_44k_v2",     # 这个是你模型的版本名
+#         num_steps=25,               # 采样步数
+#         seed=42,                    # 随机种子
+#         full_precision=False        # 是否使用全精度
+#     )
 
-    # 视频路径（换成你的真实路径）
-    video_path = "ZxiXftx2EMg_000477.mp4"
+#     # 视频路径（换成你的真实路径）
+#     video_path = "ZxiXftx2EMg_000477.mp4"
 
-    # 输出目录
-    output_dir = "outputs"
+#     # 输出目录
+#     output_dir = "outputs"
 
-    # 提示词（控制生成内容）
-    prompt = ""
-    negative_prompt = ""
+#     # 提示词（控制生成内容）
+#     prompt = ""
+#     negative_prompt = ""
 
-    # 生成音频 + 视频
-    audio_save_path, video_save_path = v2a_model.generate_audio(
-        video_path=video_path,
-        output_dir=output_dir,
-        prompt=prompt,
-        negative_prompt=negative_prompt,
-        duration=10,            # 秒
-        cfg_strength=4.5,       # 指导强度
-        mask_away_clip=False    # 是否移除 clip
-    )
+#     # 生成音频 + 视频
+#     audio_save_path, video_save_path = v2a_model.generate_audio(
+#         video_path=video_path,
+#         output_dir=output_dir,
+#         prompt=prompt,
+#         negative_prompt=negative_prompt,
+#         duration=10,            # 秒
+#         cfg_strength=4.5,       # 指导强度
+#         mask_away_clip=False    # 是否移除 clip
+#     )
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()

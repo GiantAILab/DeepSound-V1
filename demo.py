@@ -1,13 +1,26 @@
 # coding = utf-8
+
+import sys
+import os
+
+# 获取 'third_party/MMAudio' 的绝对路径
+project_root = os.path.dirname(os.path.abspath(__file__))
+mmaudio_path = os.path.join(project_root, 'third_party', 'MMAudio')
+# foleyc_path = os.path.join(project_root, 'third_party', 'FoleyCrafter')
+# musicsep_path = os.path.join(project_root, 'third_party', 'MusicSoundSeparationTraining')
+# vllm2_path = os.path.join(project_root, 'third_party', 'VideoLLaMA2')
+
+# 将 'third_party/MMAudio' 目录添加到 sys.path
+sys.path.append(mmaudio_path)
+
 import argparse
 
 from pipeline.pipeline import Pipeline
-from models.mllm import MLLM
-from models.v2a import V2A
-from models.remove_vo import RemoveVO
-from models.silence_det import SilenceDet
 from third_party.MMAudio.mmaudio.eval_utils import setup_eval_logging
 import os
+from moviepy.editor import AudioFileClip, VideoFileClip
+
+
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Arguments for the model configuration")
@@ -33,16 +46,11 @@ def parse_args():
     parser.add_argument('--step0_model_dir', type=str, 
                         default='pretrained/mllm/VideoLLaMA2.1-7B-AV-CoT', 
                         help="step0 model dir")
-    parser.add_argument('--step1_model_dir', type=str, 
-                        default='pretrained/v2a/mmaudio', 
-                        help="v2a model dir")
     parser.add_argument('--step2_model_dir', type=str, 
                         default='pretrained/mllm/VideoLLaMA2.1-7B-AV-CoT', 
                         help="judge voice-over model dir")
-    parser.add_argument('--step3_model_dir', type=str, 
-                        default='pretrained/remove_vo/checkpoints', 
-                        help="remove voice-over model path")
     
+
     parser.add_argument('--gen_video', type=str, 
                         default='true', 
                         help="Whether to generate video, true means yes")
@@ -54,6 +62,10 @@ def parse_args():
     parser.add_argument('--negative_prompt', type=str, 
                         default='', 
                         help="negative_prompt for v2a")
+    
+    parser.add_argument('--duration', type=float, 
+                        default=10, 
+                        help="generate duration")
     
     parser.add_argument('--output_dir', type=str, 
                         default='outputs', 
@@ -87,15 +99,23 @@ if __name__ == '__main__':
                                 mode=args.mode,
                                 postp_mode=args.postp_mode,
                                 prompt=args.prompt,
-                                negative_prompt=args.negative_prompt)
+                                negative_prompt=args.negative_prompt,
+                                duration=args.duration)
     
     final_audio_path = step_results["final_audio_path"]
     final_video_path = step_results["final_video_path"]
+
     if args.gen_video:
-        if step_results["final_audio_path"] is not None and step_results["final_video_path"] is None:
-            # 这里混合视频加音频
-            pass
+        if final_audio_path is not None and final_video_path is None:
+            save_video_path = final_audio_path.replace(".wav", ",mp4")
+            audio = AudioFileClip(final_audio_path)
+            video = VideoFileClip(args.video_input)
+            audio = audio.subclip(0, args.duration)
+            video.audio = audio
+            video = video.subclip(0, args.duration)
+            video.write_videofile(save_video_path)
+            step_results["final_video_path"] = save_video_path
 
-
-    print(f"final_audio_path: {final_audio_path}")
-    print(f"final_video_path: {final_video_path}")
+    print("step_results: ", step_results)
+    print(f"final_audio_path: {step_results['final_audio_path']}")
+    print(f"final_video_path: {step_results['final_video_path']}")

@@ -21,13 +21,13 @@ import warnings
 
 warnings.filterwarnings("ignore")
 
+model_base_dir = "pretrained/remove_vo/checkpoints"
+MODEL_PATHS = {"bs_roformer": [f"{model_base_dir}/model_bs_roformer_ep_317_sdr_12.9755.ckpt", f"{model_base_dir}/model_bs_roformer_ep_317_sdr_12.9755.yaml"]}
 
 
 class Step3:
-    def __init__(self, 
-                 model_type="bs_roformer", 
-                 model_path="pretrained/remove_vo/checkpoints/model_bs_roformer_ep_317_sdr_12.9755.ckpt", 
-                 config_path="pretrained/remove_vo/checkpoints/model_bs_roformer_ep_317_sdr_12.9755.yaml"):
+    def __init__(self, model_type="bs_roformer"):
+        model_path, config_path = MODEL_PATHS[model_type]
         
         self.log = logging.getLogger(self.__class__.__name__)
         self.log.setLevel(logging.INFO)
