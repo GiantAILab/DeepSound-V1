@@ -64,7 +64,8 @@ class V2A_MMAudio:
                        negative_prompt: str='',
                        duration: int=10,
                        cfg_strength: float=4.5,
-                       mask_away_clip: bool=False,):
+                       mask_away_clip: bool=False,
+                       is_postp=False,):
         
         video_path = Path(video_path).expanduser()
         output_dir = Path(output_dir).expanduser()
@@ -90,48 +91,56 @@ class V2A_MMAudio:
             cfg_strength=cfg_strength)
         audio = audios.float().cpu()[0]
         
+        if is_postp:
+            audio_save_path = output_dir / f'{video_path.stem}.neg.wav'
+            video_save_path = output_dir / f'{video_path.stem}.neg.mp4'
+        else:
+            audio_save_path = output_dir / f'{video_path.stem}.step1.wav'
+            video_save_path = output_dir / f'{video_path.stem}.step1.mp4'
+
+        
         self.log.info(f"Saving generated audio and video to {output_dir}")
-        audio_save_path = output_dir / f'{video_path.stem}.step1.wav'
         torchaudio.save(str(audio_save_path), audio, self.seq_cfg.sampling_rate)
         self.log.info(f'Audio saved to {audio_save_path}')
-        video_save_path = output_dir / f'{video_path.stem}.step1.mp4'
         make_video(video_info, str(video_save_path), audio, sampling_rate=self.seq_cfg.sampling_rate)
         self.log.info(f'Video saved to {video_save_path}')
 
+        return audio_save_path, video_save_path
 
 
-# def main():
-#     # 初始化日志（如果你有 logger.py，推荐只做一次初始化）
-#     setup_eval_logging()
 
-#     # 初始化模型
-#     v2a_model = V2A_MMAudio(
-#         variant="large_44k_v2",     # 这个是你模型的版本名
-#         num_steps=25,               # 采样步数
-#         seed=42,                    # 随机种子
-#         full_precision=False        # 是否使用全精度
-#     )
+def main():
+    # 初始化日志（如果你有 logger.py，推荐只做一次初始化）
+    setup_eval_logging()
 
-#     # 视频路径（换成你的真实路径）
-#     video_path = "ZxiXftx2EMg_000477.mp4"
+    # 初始化模型
+    v2a_model = V2A_MMAudio(
+        variant="large_44k_v2",     # 这个是你模型的版本名
+        num_steps=25,               # 采样步数
+        seed=42,                    # 随机种子
+        full_precision=False        # 是否使用全精度
+    )
 
-#     # 输出目录
-#     output_dir = "outputs"
+    # 视频路径（换成你的真实路径）
+    video_path = "ZxiXftx2EMg_000477.mp4"
 
-#     # 提示词（控制生成内容）
-#     prompt = ""
-#     negative_prompt = ""
+    # 输出目录
+    output_dir = "outputs"
 
-#     # 生成音频 + 视频
-#     v2a_model.generate_audio(
-#         video_path=video_path,
-#         output_dir=output_dir,
-#         prompt=prompt,
-#         negative_prompt=negative_prompt,
-#         duration=10,            # 秒
-#         cfg_strength=4.5,       # 指导强度
-#         mask_away_clip=False    # 是否移除 clip
-#     )
+    # 提示词（控制生成内容）
+    prompt = ""
+    negative_prompt = ""
 
-# if __name__ == "__main__":
-#     main()
+    # 生成音频 + 视频
+    audio_save_path, video_save_path = v2a_model.generate_audio(
+        video_path=video_path,
+        output_dir=output_dir,
+        prompt=prompt,
+        negative_prompt=negative_prompt,
+        duration=10,            # 秒
+        cfg_strength=4.5,       # 指导强度
+        mask_away_clip=False    # 是否移除 clip
+    )
+
+if __name__ == "__main__":
+    main()
