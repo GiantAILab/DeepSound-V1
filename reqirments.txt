@@ -13,7 +13,7 @@ torch_log_wmse
 
 # ========= Diffusion & Transformers =========
 diffusers==0.25.1
-transformers==4.40.0         # 最新稳定
+transformers==4.42.3         
 tokenizers==0.19.1
 sentencepiece==0.1.99
 peft==0.4.0
@@ -78,3 +78,4 @@ wandb
 keyboard
 #wxpython==4.2.2
 ml_collections
+pytorchvideo

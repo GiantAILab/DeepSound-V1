@@ -24,7 +24,8 @@ class Step0:
         self.preprocess = self.processor[self.modal]
 
     def run(self, video_path):
-        self.log.info("Start to generate high-quality audio from video step-by-step...")
+        self.log.info("######################################################################################################")
+        self.log.info("Generate high-quality audio from video step-by-step...")
         audio_video_tensor = self.preprocess(video_path, va=False)
         output = mm_infer(
             audio_video_tensor,

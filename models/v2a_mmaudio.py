@@ -13,7 +13,7 @@ from third_party.MMAudio.mmaudio.model.utils.features_utils import FeaturesUtils
 
 class V2A_MMAudio:
     def __init__(self, 
-                variant: str="large_44k_v2",
+                variant: str="large_44k",
                 num_steps: int=25,
                 seed: int=42,
                 full_precision: bool=False,):
@@ -35,7 +35,6 @@ class V2A_MMAudio:
             raise ValueError(f'Unknown model variant: {variant}')
         self.model: ModelConfig = all_model_cfg[variant]
         self.model.download_if_needed()
-        self.seq_cfg = self.model.seq_cfg
 
         self.net: MMAudio= get_my_mmaudio(self.model.model_name).to(self.device, self.dtype).eval()
         self.net.load_weights(torch.load(self.model.model_path, map_location=self.device, weights_only=True))
@@ -71,12 +70,24 @@ class V2A_MMAudio:
         output_dir = Path(output_dir).expanduser()
         self.log.info(f"Loading video: {video_path}")
         output_dir.mkdir(parents=True, exist_ok=True)
-        video_info = load_video(video_path, duration)
-        clip_frames = video_info.clip_frames if not mask_away_clip else None
-        sync_frames = video_info.sync_frames
 
-        self.seq_cfg.duration = duration
-        self.net.update_seq_lengths(self.seq_cfg.latent_seq_len, self.seq_cfg.clip_seq_len, self.seq_cfg.sync_seq_len)
+        video_info = load_video(video_path, duration)
+        clip_frames = video_info.clip_frames
+        sync_frames = video_info.sync_frames
+        duration = video_info.duration_sec
+
+        if mask_away_clip:
+            clip_frames = None
+        else:
+            clip_frames = clip_frames.unsqueeze(0)
+        sync_frames = sync_frames.unsqueeze(0)
+
+        seq_cfg = self.model.seq_cfg
+        seq_cfg.duration = duration
+        self.net.update_seq_lengths(seq_cfg.latent_seq_len, seq_cfg.clip_seq_len, seq_cfg.sync_seq_len)
+
+        self.log.info(f'Prompt: {prompt}')
+        self.log.info(f'Negative prompt: {negative_prompt}')
         
         self.log.info(f"Generating Audio...")
         audios = generate(
@@ -100,9 +111,9 @@ class V2A_MMAudio:
 
         
         self.log.info(f"Saving generated audio and video to {output_dir}")
-        torchaudio.save(str(audio_save_path), audio, self.seq_cfg.sampling_rate)
+        torchaudio.save(str(audio_save_path), audio, seq_cfg.sampling_rate)
         self.log.info(f'Audio saved to {audio_save_path}')
-        make_video(video_info, str(video_save_path), audio, sampling_rate=self.seq_cfg.sampling_rate)
+        make_video(video_info, str(video_save_path), audio, sampling_rate=seq_cfg.sampling_rate)
         self.log.info(f'Video saved to {video_save_path}')
 
         return audio_save_path, video_save_path

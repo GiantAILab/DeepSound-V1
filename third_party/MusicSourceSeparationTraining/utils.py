@@ -1,6 +1,12 @@
 # coding: utf-8
 __author__ = 'Roman Solovyev (ZFTurbo): https://github.com/ZFTurbo/'
 
+import sys
+import os
+sys.path.append(os.path.dirname(__file__))  # 当前路径
+
+
+
 import argparse
 import numpy as np
 import torch
@@ -162,7 +168,7 @@ def read_audio_transposed(path: str, instr: str = None, skip_err: bool = False) 
         return mix.T, sr
 
 
-def normalize_audio(audio: np.ndarray) -> tuple[np.ndarray, Dict[str, float]]:
+def normalize_audio(audio: np.ndarray) -> Tuple[np.ndarray, Dict[str, float]]:
     """
     Normalize an audio signal by subtracting the mean and dividing by the standard deviation.
 

@@ -1,5 +1,5 @@
 import logging
-from typing import Optional
+from typing import Optional, Tuple, List
 
 import torch
 import torch.nn as nn
@@ -139,7 +139,7 @@ class VAE(nn.Module):
         rng: Optional[torch.Generator] = None,
         normalize: bool = True,
         unnormalize: bool = True,
-    ) -> tuple[torch.Tensor, DiagonalGaussianDistribution]:
+    ) -> Tuple[torch.Tensor, DiagonalGaussianDistribution]:
 
         posterior = self.encode(x, normalize=normalize)
         if sample_posterior:
@@ -172,10 +172,10 @@ class Encoder1D(nn.Module):
     def __init__(self,
                  *,
                  dim: int,
-                 ch_mult: tuple[int] = (1, 2, 4, 8),
+                 ch_mult: Tuple[int] = (1, 2, 4, 8),
                  num_res_blocks: int,
-                 attn_layers: list[int] = [],
-                 down_layers: list[int] = [],
+                 attn_layers: List[int] = [],
+                 down_layers: List[int] = [],
                  resamp_with_conv: bool = True,
                  in_dim: int,
                  embed_dim: int,
@@ -269,10 +269,10 @@ class Decoder1D(nn.Module):
                  *,
                  dim: int,
                  out_dim: int,
-                 ch_mult: tuple[int] = (1, 2, 4, 8),
+                 ch_mult: Tuple[int] = (1, 2, 4, 8),
                  num_res_blocks: int,
-                 attn_layers: list[int] = [],
-                 down_layers: list[int] = [],
+                 attn_layers: List[int] = [],
+                 down_layers: List[int] = [],
                  kernel_size: int = 3,
                  resamp_with_conv: bool = True,
                  in_dim: int,

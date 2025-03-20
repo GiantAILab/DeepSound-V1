@@ -63,7 +63,7 @@ class Step3:
             draw_spectro=0,
             ):
         
-        self.log.info("Step3: Remove voice-over from audio.")
+        # self.log.info("Step3: Remove voice-over from audio.")
         
         os.makedirs(output_dir, exist_ok=True)
         
@@ -98,7 +98,7 @@ class Step3:
             if 'instrumental' not in instruments:
                 instruments.append('instrumental')
 
-        file_name = os.path.splitext(os.path.basename(input_audio_path))[0]
+        file_name = os.path.splitext(os.path.basename(input_audio_path))[0].replace(".step1", "")
         temp_output_dir = os.path.join(temp_store_dir, file_name)
         os.makedirs(temp_output_dir, exist_ok=True)
 
@@ -119,7 +119,8 @@ class Step3:
         step3_audio_path = f"{output_dir}/{file_name}.step3.wav"
         subprocess.run(['cp', instrumental_file, step3_audio_path])
 
-        self.log.info("Finish Step3 successfuilly")
+        self.log.info(f"The voice-over has been removed, and the audio is saved in {step3_audio_path}")
+        self.log.info("Finish Step3 successfully.\n")
         return step3_audio_path
 
 
