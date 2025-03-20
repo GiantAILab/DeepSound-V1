@@ -28,8 +28,8 @@ class Pipeline:
         step3_temp_dir = os.path.join(output_dir, "remove_vo")
         
         step_results = {}
-        step_results["final_audio_path"] = None
-        step_results["final_video_path"] = None
+        step_results["temp_final_audio_path"] = None
+        step_results["temp_final_video_path"] = None
         for step_info in step_infos:
             self.log.info(f"Start to {step_info}")
             if step_info == 'Step1: Generate audio from video.':
@@ -41,8 +41,8 @@ class Pipeline:
                 is_vo = self.step2.run(str(step_results["step1_video_path"]))
                 step_results["is_vo"] = is_vo
                 if not step_results["is_vo"]: # not voice-over
-                    step_results["final_audio_path"] = step_results["step1_audio_path"]
-                    step_results["final_video_path"] = step_results["step1_video_path"]
+                    step_results["temp_final_audio_path"] = step_results["step1_audio_path"]
+                    step_results["temp_final_video_path"] = step_results["step1_video_path"]
                     return step_results
 
             elif step_info == 'Step3: Remove voice-over from audio.':
@@ -51,7 +51,7 @@ class Pipeline:
                                 output_dir=output_dir)
                 step_results["step3_audio_path"] = step3_audio_path
                 if mode == 's3':
-                    step_results["final_audio_path"] = step_results["step3_audio_path"]
+                    step_results["temp_final_audio_path"] = step_results["step3_audio_path"]
                     return step_results
 
             elif step_info == 'Step4: Determine whether the audio is silent.':
@@ -63,22 +63,22 @@ class Pipeline:
                 return step_results
 
         if not step_results["is_silent"]:  #  not silent
-            step_results["final_audio_path"] = step_results["step3_audio_path"]
+            step_results["temp_final_audio_path"] = step_results["step3_audio_path"]
         else:
             self.log.info(f"Start to post process, use mode: {postp_mode}")
             if postp_mode == "rm":
-                step_results["final_audio_path"] = None
+                step_results["temp_final_audio_path"] = None
             elif postp_mode == "rep":
-                step_results["final_audio_path"] = step_results["step1_audio_path"]
-                step_results["final_video_path"] = step_results["step1_video_path"]
+                step_results["temp_final_audio_path"] = step_results["step1_audio_path"]
+                step_results["temp_final_video_path"] = step_results["step1_video_path"]
             elif postp_mode == "neg":
                 neg_audio_path, neg_video_path = self.step1.run(video_input, output_dir, prompt, negative_prompt='human voice', duration=duration, is_postp=True)
-                step_results["final_audio_path"] = neg_audio_path
-                step_results["final_video_path"] = neg_video_path
+                step_results["temp_final_audio_path"] = neg_audio_path
+                step_results["temp_final_video_path"] = neg_video_path
             else:
                 self.log.error(f"Error postp_mode: {postp_mode}")
     
-            self.log.info(f"After post-processing, audio is {step_results['final_audio_path']} and video is {step_results['final_video_path']}")
+            self.log.info(f"After post-processing, audio is {step_results['temp_final_audio_path']} and video is {step_results['temp_final_video_path']}")
             self.log.info(f"Finish Post-Process successfully.\n")
         
         return step_results

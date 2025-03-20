@@ -97,17 +97,17 @@ def main():
                                 negative_prompt=args.negative_prompt,
                                 duration=args.duration)
     
-    final_audio_path_temp = step_results["final_audio_path"]
-    final_video_path_temp = step_results["final_video_path"]
+    temp_final_audio_path = step_results["temp_final_audio_path"]
+    temp_final_video_path = step_results["temp_final_video_path"]
     final_audio_path = Path(args.output_dir).expanduser() / f'{Path(args.video_input).expanduser().stem}.wav'
     final_video_path = Path(args.output_dir).expanduser() / f'{Path(args.video_input).expanduser().stem}.mp4'
 
-    if final_audio_path_temp is not None:
-        subprocess.run(['cp', str(final_audio_path_temp), str(final_audio_path)], check=True)
+    if temp_final_audio_path is not None:
+        subprocess.run(['cp', str(temp_final_audio_path), str(final_audio_path)], check=True)
         step_results["final_audio_path"] = final_audio_path
         if args.gen_video:
-            if final_video_path_temp is not None:
-                subprocess.run(['cp', str(final_video_path_temp), str(final_video_path)], check=True)
+            if temp_final_video_path is not None:
+                subprocess.run(['cp', str(temp_final_video_path), str(final_video_path)], check=True)
             else:
                 audio = AudioFileClip(final_audio_path)
                 video = VideoFileClip(args.video_input)
