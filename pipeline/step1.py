@@ -9,11 +9,11 @@ class Step1:
         self.log.setLevel(logging.INFO)
 
         if step1_mode.startswith('mmaudio'):
-            from models.v2a_mmaudio import V2A_MMAudio
+            from v2a_models.v2a_mmaudio import V2A_MMAudio
             variant = step1_mode.replace("mmaudio_", "")
             self.v2a_model = V2A_MMAudio(variant)
         elif step1_mode == "foleycrafter":
-            from models.v2a_foleycrafter import V2A_FoleyCrafter
+            from v2a_models.v2a_foleycrafter import V2A_FoleyCrafter
             self.v2a_model = V2A_FoleyCrafter()
         else:
             self.log.error(f"Error step1_mode: {step1_mode}")

@@ -57,6 +57,10 @@ class Pipeline:
             elif step_info == 'Step4: Determine whether the audio is silent.':
                 is_silent = self.step4.run(step_results["step3_audio_path"])
                 step_results["is_silent"] = is_silent
+            
+            else:
+                self.log.error(f"Step-by-Step Error !!!!!!!!!")
+                return step_results
 
         if not step_results["is_silent"]:  #  not silent
             step_results["final_audio_path"] = step_results["step3_audio_path"]
@@ -71,7 +75,9 @@ class Pipeline:
                 neg_audio_path, neg_video_path = self.step1.run(video_input, output_dir, prompt, negative_prompt='human voice', duration=duration, is_postp=True)
                 step_results["final_audio_path"] = neg_audio_path
                 step_results["final_video_path"] = neg_video_path
-
+            else:
+                self.log.error(f"Error postp_mode: {postp_mode}")
+    
             self.log.info(f"After post-processing, audio is {step_results['final_audio_path']} and video is {step_results['final_video_path']}")
             self.log.info(f"Finish Post-Process successfully.\n")
         
