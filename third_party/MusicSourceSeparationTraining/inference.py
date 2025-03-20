@@ -47,8 +47,10 @@ def run_folder(model, args, config, device, verbose: bool = False):
     start_time = time.time()
     model.eval()
 
-    mixture_paths = sorted(glob.glob(os.path.join(args.input_folder, '*.*')))
+    mixture_paths = sorted(glob.glob(os.path.join(args.input_folder, '*.wav')))
     sample_rate = getattr(config.audio, 'sample_rate', 44100)
+
+    mixture_paths = mixture_paths[args.start_idx: args.end_idx]
 
     print(f"Total files found: {len(mixture_paths)}. Using sample rate: {sample_rate}")
 
@@ -153,6 +155,9 @@ def parse_args(dict_args: Union[Dict, None]) -> argparse.Namespace:
                         "While this triples the runtime, it reduces noise and slightly improves prediction quality.")
     parser.add_argument("--lora_checkpoint", type=str, default='', help="Initial checkpoint to LoRA weights")
 
+    parser.add_argument("--start_idx", type=int, default=0, help='start idx')
+    parser.add_argument("--end_idx", type=int, default=9999999, help='end idx')
+
     if dict_args is not None:
         args = parser.parse_args([])
         args_dict = vars(args)
@@ -162,6 +167,25 @@ def parse_args(dict_args: Union[Dict, None]) -> argparse.Namespace:
         args = parser.parse_args()
 
     return args
+
+import subprocess
+def post_process(sep_dir):
+    # 将分离后的 sep_dir 下子文件夹下的 instrumental 保存到 final_dir 下 {子文件夹}.wav
+    final_dir = sep_dir + "_v2"
+    print(f"Start to copy {sep_dir} to {final_dir}")
+    os.makedirs(final_dir, exist_ok=True)
+    for subfolder in tqdm(os.listdir(sep_dir)):
+        subfolder_path = os.path.join(sep_dir, subfolder)
+        if os.path.isdir(subfolder_path):
+            instrumental_file = os.path.join(subfolder_path, 'instrumental.wav')
+            if os.path.exists(instrumental_file):
+                try:
+                    final_file_path = os.path.join(final_dir, f"{subfolder}.wav")
+                    subprocess.run(['cp', instrumental_file, final_file_path])
+                except Exception as e:
+                    print(f"eeeeeeeeeeeeeee {e} in {subfolder}")
+            else:
+                print(f"{instrumental_file} 在 {subfolder_path} 中未找到。")
 
 
 def proc_folder(dict_args):
@@ -196,6 +220,7 @@ def proc_folder(dict_args):
     print("Model load time: {:.2f} sec".format(time.time() - model_load_start_time))
 
     run_folder(model, args, config, device, verbose=True)
+    post_process(args.store_dir)
 
 
 if __name__ == "__main__":

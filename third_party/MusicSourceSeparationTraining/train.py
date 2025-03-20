@@ -6,7 +6,6 @@ import random
 import argparse
 from tqdm.auto import tqdm
 import os
-import time
 import torch
 import wandb
 import numpy as np
@@ -18,7 +17,7 @@ from torch.cuda.amp.grad_scaler import GradScaler
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 from ml_collections import ConfigDict
 import torch.nn.functional as F
-from typing import List, Tuple, Dict, Union, Callable, Any
+from typing import List, Tuple, Dict, Union, Callable
 
 from dataset import MSSDataset
 from utils import get_model_from_config
@@ -58,19 +57,16 @@ def parse_args(dict_args: Union[Dict, None]) -> argparse.Namespace:
     parser.add_argument("--pin_memory", action='store_true', help="dataloader pin_memory")
     parser.add_argument("--seed", type=int, default=0, help="random seed")
     parser.add_argument("--device_ids", nargs='+', type=int, default=[0], help='list of gpu ids')
-    parser.add_argument("--loss", type=str, nargs='+', choices=['masked_loss', 'mse_loss', 'l1_loss', 'multistft_loss'],
-                        default=['masked_loss'], help="List of loss functions to use")
-    parser.add_argument("--masked_loss_coef", type=float, default=1., help="Coef for loss")
-    parser.add_argument("--mse_loss_coef", type=float, default=1., help="Coef for loss")
-    parser.add_argument("--l1_loss_coef", type=float, default=1., help="Coef for loss")
-    parser.add_argument("--multistft_loss_coef", type=float, default=0.001, help="Coef for loss")
+    parser.add_argument("--use_multistft_loss", action='store_true', help="Use MultiSTFT Loss (from auraloss package)")
+    parser.add_argument("--use_mse_loss", action='store_true', help="Use default MSE loss")
+    parser.add_argument("--use_l1_loss", action='store_true', help="Use L1 loss")
     parser.add_argument("--wandb_key", type=str, default='', help='wandb API Key')
     parser.add_argument("--pre_valid", action='store_true', help='Run validation before training')
     parser.add_argument("--metrics", nargs='+', type=str, default=["sdr"],
-                        choices=['sdr', 'l1_freq', 'si_sdr', 'log_wmse', 'aura_stft', 'aura_mrstft', 'bleedless',
+                        choices=['sdr', 'l1_freq', 'si_sdr', 'neg_log_wmse', 'aura_stft', 'aura_mrstft', 'bleedless',
                                  'fullness'], help='List of metrics to use.')
     parser.add_argument("--metric_for_scheduler", default="sdr",
-                        choices=['sdr', 'l1_freq', 'si_sdr', 'log_wmse', 'aura_stft', 'aura_mrstft', 'bleedless',
+                        choices=['sdr', 'l1_freq', 'si_sdr', 'neg_log_wmse', 'aura_stft', 'aura_mrstft', 'bleedless',
                                  'fullness'], help='Metric which will be used for scheduler.')
     parser.add_argument("--train_lora", action='store_true', help="Train with LoRA")
     parser.add_argument("--lora_checkpoint", type=str, default='', help="Initial checkpoint to LoRA weights")
@@ -124,14 +120,6 @@ def initialize_environment(seed: int, results_path: str) -> None:
         pass
     os.makedirs(results_path, exist_ok=True)
 
-
-def gen_wandb_name(args, config):
-    instrum = '-'.join(config['training']['instruments'])
-    time_str = time.strftime("%Y-%m-%d")
-    name = '{}_[{}]_{}'.format(args.model_type, instrum, time_str)
-    return name
-
-
 def wandb_init(args: argparse.Namespace, config: Dict, device_ids: List[int], batch_size: int) -> None:
     """
     Initialize the Weights & Biases (wandb) logging system.
@@ -147,11 +135,7 @@ def wandb_init(args: argparse.Namespace, config: Dict, device_ids: List[int], ba
         wandb.init(mode='disabled')
     else:
         wandb.login(key=args.wandb_key)
-        wandb.init(
-            project='msst',
-            name=gen_wandb_name(args, config),
-            config={'config': config, 'args': args, 'device_ids': device_ids, 'batch_size': batch_size }
-        )
+        wandb.init(project='msst', config={'config': config, 'args': args, 'device_ids': device_ids, 'batch_size': batch_size })
 
 
 def prepare_data(config: Dict, args: argparse.Namespace, batch_size: int) -> DataLoader:
@@ -257,29 +241,58 @@ def get_optimizer(config: ConfigDict, model: torch.nn.Module) -> torch.optim.Opt
     return optimizer
 
 
-def multistft_loss(y: torch.Tensor, y_: torch.Tensor,
-                   loss_multistft: Callable[[torch.Tensor, torch.Tensor], torch.Tensor]) -> torch.Tensor:
-    if len(y_.shape) == 4:
-        y1_ = y_.reshape(y_.shape[0], y_.shape[1] * y_.shape[2], y_.shape[3])
-        y1 = y.reshape(y.shape[0], y.shape[1] * y.shape[2], y.shape[3])
-    elif len(y_.shape) == 3:
-        y1_, y1 = y_, y
-    else:
-        raise ValueError(f"Invalid shape for predicted array: {y_.shape}. Expected 3 or 4 dimensions.")
-    return loss_multistft(y1_, y1)
-
-
 def masked_loss(y_: torch.Tensor, y: torch.Tensor, q: float, coarse: bool = True) -> torch.Tensor:
+    """
+    Compute the masked loss, which applies a quantile-based mask to the MSE loss.
+
+    Args:
+        y_: Predicted tensor of shape [num_sources, batch_size, num_channels, chunk_size].
+        y: Ground truth tensor of the same shape as y_.
+        q: Quantile value for the mask.
+        coarse: If True, computes the mean loss over the last two dimensions (channels and chunk_size).
+
+    Returns:
+        The masked mean loss.
+    """
+
+    # shape = [num_sources, batch_size, num_channels, chunk_size]
     loss = torch.nn.MSELoss(reduction='none')(y_, y).transpose(0, 1)
     if coarse:
-        loss = loss.mean(dim=(-1, -2))
+        loss = torch.mean(loss, dim=(-1, -2))
     loss = loss.reshape(loss.shape[0], -1)
-    quantile = torch.quantile(loss.detach(), q, interpolation='linear', dim=1, keepdim=True)
-    mask = loss < quantile
+    L = loss.detach()
+    quantile = torch.quantile(L, q, interpolation='linear', dim=1, keepdim=True)
+    mask = L < quantile
     return (loss * mask).mean()
 
 
-def choice_loss(args: argparse.Namespace, config: ConfigDict) -> Callable[[Any, Any], int]:
+def multistft_loss(y: torch.Tensor, y_: torch.Tensor, loss_multistft: Callable[[torch.Tensor, torch.Tensor], torch.Tensor]) -> torch.Tensor:
+    """
+    Compute the multi-STFT loss between the predicted and ground truth tensors.
+
+    Args:
+        y: Ground truth tensor, shape [num_sources, batch_size, num_channels, chunk_size] (or [num_sources, batch_size, chunk_size] for models like Apollo).
+        y_: Predicted tensor with the same shape as y.
+        loss_multistft: A function that computes the multi-STFT loss.
+
+    Returns:
+        The multi-STFT loss value.
+    """
+
+    if len(y_.shape) == 4:
+        y1_ = torch.reshape(y_, (y_.shape[0], y_.shape[1] * y_.shape[2], y_.shape[3]))
+        y1 = torch.reshape(y, (y.shape[0], y.shape[1] * y.shape[2], y.shape[3]))
+    elif len(y_.shape) == 3:
+        # For models like apollo no need to reshape
+        y1_ = y_
+        y1 = y
+    else:
+        raise ValueError(f"Invalid shape for predicted array: {y_.shape}. Expected 3 or 4 dimensions.")
+
+    return loss_multistft(y1_, y1)
+
+
+def choice_loss(args: argparse.Namespace, config: ConfigDict) -> Callable[[torch.Tensor, torch.Tensor], torch.Tensor]:
     """
     Select and return the appropriate loss function based on the configuration and arguments.
 
@@ -291,23 +304,34 @@ def choice_loss(args: argparse.Namespace, config: ConfigDict) -> Callable[[Any, 
         A loss function that can be applied to the predicted and ground truth tensors.
     """
 
-    print(f'Losses for training: {args.loss}')
-    loss_fns = []
-    if 'masked_loss' in args.loss:
-        loss_fns.append(
-            lambda y_, y: masked_loss(y_, y, q=config['training']['q'], coarse=config['training']['coarse_loss_clip']) * args.masked_loss_coef)
-    if 'mse_loss' in args.loss:
-        loss_fns.append(lambda y_, y: nn.MSELoss()(y_, y) * args.mse_loss_coef)
-    if 'l1_loss' in args.loss:
-        loss_fns.append(lambda y_, y: F.l1_loss(y_, y) * args.l1_loss_coef)
-    if 'multistft_loss' in args.loss:
-        loss_options = dict(config.get('loss_multistft', {}))
+    if args.use_multistft_loss:
+        loss_options = dict(getattr(config, 'loss_multistft', {}))
+        print(f'Loss options: {loss_options}')
         loss_multistft = auraloss.freq.MultiResolutionSTFTLoss(**loss_options)
-        loss_fns.append(lambda y_, y: multistft_loss(y_, y, loss_multistft) * args.multistft_loss_coef)
 
-    def multi_loss(y_, y):
-        return sum(loss_fn(y_, y) for loss_fn in loss_fns)
-
+        if args.use_mse_loss and args.use_l1_loss:
+            def multi_loss(y_, y):
+                return (multistft_loss(y_, y, loss_multistft) / 1000) + nn.MSELoss()(y_, y) + F.l1_loss(y_, y)
+        elif args.use_mse_loss:
+            def multi_loss(y_, y):
+                return (multistft_loss(y_, y, loss_multistft) / 1000) + nn.MSELoss()(y_, y)
+        elif args.use_l1_loss:
+            def multi_loss(y_, y):
+                return (multistft_loss(y_, y, loss_multistft) / 1000) + F.l1_loss(y_, y)
+        else:
+            def multi_loss(y_, y):
+                return multistft_loss(y_, y, loss_multistft) / 1000
+    elif args.use_mse_loss:
+        if args.use_l1_loss:
+            def multi_loss(y_, y):
+                return nn.MSELoss()(y_, y) + F.l1_loss(y_, y)
+        else:
+            multi_loss = nn.MSELoss()
+    elif args.use_l1_loss:
+        multi_loss = F.l1_loss
+    else:
+        def multi_loss(y_, y):
+            return masked_loss(y_, y, q=config.training.q, coarse=config.training.coarse_loss_clip)
     return multi_loss
 
 
@@ -454,9 +478,9 @@ def compute_epoch_metrics(model: torch.nn.Module, args: argparse.Namespace, conf
     """
 
     if torch.cuda.is_available() and len(device_ids) > 1:
-        metrics_avg, all_metrics = valid_multi_gpu(model, args, config, args.device_ids, verbose=False)
+        metrics_avg = valid_multi_gpu(model, args, config, args.device_ids, verbose=False)
     else:
-        metrics_avg, all_metrics = valid(model, args, config, device, verbose=False)
+        metrics_avg = valid(model, args, config, device, verbose=False)
     metric_avg = metrics_avg[args.metric_for_scheduler]
     if metric_avg > best_metric:
         store_path = f'{args.results_path}/model_{args.model_type}_ep_{epoch}_{args.metric_for_scheduler}_{metric_avg:.4f}.ckpt'

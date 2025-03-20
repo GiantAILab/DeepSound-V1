@@ -1,10 +1,8 @@
 # coding: utf-8
 __author__ = 'Roman Solovyev (ZFTurbo): https://github.com/ZFTurbo/'
-
 import sys
 import os
-sys.path.append(os.path.dirname(__file__))  # 当前路径
-
+sys.path.append(os.path.dirname(__file__))
 
 
 import argparse
@@ -124,9 +122,6 @@ def get_model_from_config(model_type: str, config_path: str) -> Tuple:
     elif model_type == 'bs_mamba2':
         from models.ts_bs_mamba2 import Separator
         model = Separator(**config.model)
-    elif model_type == 'experimental_mdx23c_stht':
-        from models.mdx23c_tfc_tdf_v3_with_STHT import TFC_TDF_net
-        model = TFC_TDF_net(config)
     else:
         raise ValueError(f"Unknown model type: {model_type}")
 
@@ -168,7 +163,7 @@ def read_audio_transposed(path: str, instr: str = None, skip_err: bool = False) 
         return mix.T, sr
 
 
-def normalize_audio(audio: np.ndarray) -> Tuple[np.ndarray, Dict[str, float]]:
+def normalize_audio(audio: np.ndarray) -> tuple[np.ndarray, Dict[str, float]]:
     """
     Normalize an audio signal by subtracting the mean and dividing by the standard deviation.
 

@@ -73,8 +73,14 @@ def parse_args():
 
 @torch.inference_mode()
 def main():
-    args = parse_args()
     setup_eval_logging()
+
+    args = parse_args()
+    video_input = args.video_input
+    duration = args.duration
+    output_dir = args.output_dir
+    os.makedirs(output_dir, exist_ok=True)
+    
     
     st = time.time()
     pipeline = Pipeline(
@@ -87,10 +93,10 @@ def main():
     et = time.time()
     print(f"Initialize models time: {et - st:.2f} s.")
 
-    os.makedirs(args.output_dir, exist_ok=True)
+    
     st_infer = time.time()
-    step_results = pipeline.run(video_input=args.video_input, 
-                                output_dir=args.output_dir,
+    step_results = pipeline.run(video_input=video_input, 
+                                output_dir=output_dir,
                                 mode=args.mode,
                                 postp_mode=args.postp_mode,
                                 prompt=args.prompt,
@@ -99,21 +105,22 @@ def main():
     
     temp_final_audio_path = step_results["temp_final_audio_path"]
     temp_final_video_path = step_results["temp_final_video_path"]
-    final_audio_path = Path(args.output_dir).expanduser() / f'{Path(args.video_input).expanduser().stem}.wav'
-    final_video_path = Path(args.output_dir).expanduser() / f'{Path(args.video_input).expanduser().stem}.mp4'
+    final_audio_path = str(Path(output_dir).expanduser() / f'{Path(video_input).expanduser().stem}.wav')
+    final_video_path = str(Path(output_dir).expanduser() / f'{Path(video_input).expanduser().stem}.mp4')
 
     if temp_final_audio_path is not None:
-        subprocess.run(['cp', str(temp_final_audio_path), str(final_audio_path)], check=True)
+        subprocess.run(['cp', str(temp_final_audio_path), final_audio_path], check=True)
         step_results["final_audio_path"] = final_audio_path
         if args.gen_video:
             if temp_final_video_path is not None:
-                subprocess.run(['cp', str(temp_final_video_path), str(final_video_path)], check=True)
+                subprocess.run(['cp', str(temp_final_video_path), final_video_path], check=True)
             else:
                 audio = AudioFileClip(final_audio_path)
-                video = VideoFileClip(args.video_input)
-                audio = audio.subclip(0, args.duration)
+                video = VideoFileClip(video_input)
+                duration = min(audio.duration, video.duration)
+                audio = audio.subclip(0, duration)
                 video.audio = audio
-                video = video.subclip(0, args.duration)
+                video = video.subclip(0, duration)
                 video.write_videofile(final_video_path)
             step_results["final_video_path"] = final_video_path
         else:
