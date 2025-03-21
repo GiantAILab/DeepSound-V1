@@ -79,3 +79,7 @@ keyboard
 #wxpython==4.2.2
 ml_collections
 pytorchvideo
+imagebind @ git+https://github.com/hkchengrex/ImageBind.git
+laion-clap @ git+https://github.com/hkchengrex/CLAP.git
+hear21passt
+msclap @ git+https://github.com/hkchengrex/MS-CLAP.git

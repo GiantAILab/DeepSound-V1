@@ -105,13 +105,7 @@ See [MODELS.md](docs/MODELS.md).
 With `demo.py`
 
 ```bash
-python demo.py \
-    --video=<path to video> \
-    --prompt "your prompt" \
-    --step1 "mmaudio-large-44k" \
-    --step2 "cot" \
-    --step3 "bs_roformer" \
-    --step4 "neg"
+python demo.py -i <video_path>
 ```
 
 All training parameters are [here]().
@@ -134,7 +128,7 @@ python gradio_demo.py
 
 
 ## Evaluation
-
+Refer [av-benchmark](https://github.com/hkchengrex/av-benchmark) for benchmarking results.
 See [EVAL.md](docs/EVAL.md).
 
 

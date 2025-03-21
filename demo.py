@@ -47,9 +47,11 @@ def parse_args():
     parser.add_argument('--step2_model_dir', type=str, 
                         default='pretrained/mllm/VideoLLaMA2.1-7B-AV-CoT', 
                         help="judge voice-over model dir")
-    parser.add_argument('--gen_video', type=str, 
-                        default='true', 
-                        help="Whether to generate video, true means yes")
+    parser.add_argument('--skip_final_video',
+                        action='store_true',
+                        help='Skip generating the final video'
+                    )
+
     
 
     parser.add_argument('--prompt', type=str, 
@@ -111,7 +113,9 @@ def main():
     if temp_final_audio_path is not None:
         subprocess.run(['cp', str(temp_final_audio_path), final_audio_path], check=True)
         step_results["final_audio_path"] = final_audio_path
-        if args.gen_video:
+        if args.skip_final_video:
+            step_results["final_video_path"] = None
+        else:
             if temp_final_video_path is not None:
                 subprocess.run(['cp', str(temp_final_video_path), final_video_path], check=True)
             else:
@@ -123,8 +127,7 @@ def main():
                 video = video.subclip(0, duration)
                 video.write_videofile(final_video_path)
             step_results["final_video_path"] = final_video_path
-        else:
-            step_results["final_video_path"] = None
+
     
     et_infer = time.time()
     print(f"Inference time: {et_infer - st_infer:.2f} s.")
