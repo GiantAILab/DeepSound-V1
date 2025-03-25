@@ -15,7 +15,6 @@ class V2A_MMAudio:
     def __init__(self, 
                 variant: str="large_44k",
                 num_steps: int=25,
-                seed: int=42,
                 full_precision: bool=False,):
         
         self.log = logging.getLogger(self.__class__.__name__)
@@ -39,10 +38,6 @@ class V2A_MMAudio:
         self.net: MMAudio= get_my_mmaudio(self.model.model_name).to(self.device, self.dtype).eval()
         self.net.load_weights(torch.load(self.model.model_path, map_location=self.device, weights_only=True))
 
-        # Setup random generator for reproducibility
-        self.rng = torch.Generator(device=self.device)
-        self.rng.manual_seed(seed)
-
         # Flow Matching
         self.fm = FlowMatching(min_sigma=0, inference_mode='euler', num_steps=num_steps)
 
@@ -56,12 +51,14 @@ class V2A_MMAudio:
         self.feature_utils = self.feature_utils.to(self.device, self.dtype).eval()
 
 
+    @torch.no_grad()
     def generate_audio(self, 
                        video_path,
                        output_dir,
                        prompt: str='', 
                        negative_prompt: str='',
                        duration: int=10,
+                       seed: int=42,
                        cfg_strength: float=4.5,
                        mask_away_clip: bool=False,
                        is_postp=False,):
@@ -75,6 +72,10 @@ class V2A_MMAudio:
         clip_frames = video_info.clip_frames
         sync_frames = video_info.sync_frames
         duration = video_info.duration_sec
+
+        # Setup random generator for reproducibility
+        rng = torch.Generator(device=self.device)
+        rng.manual_seed(seed)
 
         if mask_away_clip:
             clip_frames = None
@@ -98,7 +99,7 @@ class V2A_MMAudio:
             feature_utils=self.feature_utils,
             net=self.net,
             fm=self.fm,
-            rng=self.rng,
+            rng=rng,
             cfg_strength=cfg_strength)
         audio = audios.float().cpu()[0]
         

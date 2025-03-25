@@ -32,9 +32,7 @@ model_base_dir = "pretrained/v2a/foleycrafter"
 class V2A_FoleyCrafter:
     def __init__(self, 
                 pretrained_model_name_or_path: str=f"{model_base_dir}/checkpoints/auffusion",
-                ckpt: str=f"{model_base_dir}/checkpoints",
-                semantic_scale: float=1.0,
-                seed: int=42):
+                ckpt: str=f"{model_base_dir}/checkpoints",):
         self.log = logging.getLogger(self.__class__.__name__)
         self.log.setLevel(logging.INFO)
         self.log.info(f"The V2A model uses FoleyCrafter, init...")
@@ -83,24 +81,29 @@ class V2A_FoleyCrafter:
         self.pipe.load_ip_adapter(
             os.path.join(ckpt, "semantic"), subfolder="", weight_name="semantic_adapter.bin", image_encoder_folder=None
         )
-        ip_adapter_weight = semantic_scale
-        self.pipe.set_ip_adapter_scale(ip_adapter_weight)
+        # ip_adapter_weight = semantic_scale
+        # self.pipe.set_ip_adapter_scale(ip_adapter_weight)
 
         self.generator = torch.Generator(device=self.device)
-        self.generator.manual_seed(seed)
+        # self.generator.manual_seed(seed)
         self.image_processor = CLIPImageProcessor()
         self.image_encoder = CLIPVisionModelWithProjection.from_pretrained(
             "h94/IP-Adapter", subfolder="models/image_encoder"
         ).to(self.device)
 
-
+    @torch.no_grad()
     def generate_audio(self, 
                        video_path,
                        output_dir,
                        prompt: str='', 
                        negative_prompt: str='',
+                       seed: int=42,
                        temporal_scale: float=0.2,
+                       semantic_scale: float=1.0,
                        is_postp=False,):
+        
+        self.pipe.set_ip_adapter_scale(semantic_scale)
+        self.generator.manual_seed(seed)
         
         video_path = Path(video_path).expanduser()
         output_dir = Path(output_dir).expanduser()

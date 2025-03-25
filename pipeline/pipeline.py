@@ -21,7 +21,7 @@ class Pipeline:
         self.log.setLevel(logging.INFO)
         
 
-    def run(self, video_input, output_dir, mode='s4', postp_mode='rep', prompt='', negative_prompt='', duration=10):
+    def run(self, video_input, output_dir, mode='s4', postp_mode='rep', prompt='', negative_prompt='', duration=10, seed=42):
         step0_resp = self.step0.run(video_input)
         step0_resp_list = re.findall(r'(Step\d:.*?)(?=Step\d:|$)', step0_resp, re.DOTALL)
         step_infos = [step_info.strip().split("\n")[0] for step_info in step0_resp_list]
@@ -33,7 +33,7 @@ class Pipeline:
         for step_info in step_infos:
             self.log.info(f"Start to {step_info}")
             if step_info == 'Step1: Generate audio from video.':
-                step1_audio_path, step1_video_path = self.step1.run(video_input, output_dir, prompt, negative_prompt, duration=duration)
+                step1_audio_path, step1_video_path = self.step1.run(video_input, output_dir, prompt, negative_prompt, duration=duration, seed=seed)
                 step_results["step1_audio_path"] = step1_audio_path
                 step_results["step1_video_path"] = step1_video_path
 
@@ -72,7 +72,7 @@ class Pipeline:
                 step_results["temp_final_audio_path"] = step_results["step1_audio_path"]
                 step_results["temp_final_video_path"] = step_results["step1_video_path"]
             elif postp_mode == "neg":
-                neg_audio_path, neg_video_path = self.step1.run(video_input, output_dir, prompt, negative_prompt='human voice', duration=duration, is_postp=True)
+                neg_audio_path, neg_video_path = self.step1.run(video_input, output_dir, prompt, negative_prompt='human voice', duration=duration, seed=seed, is_postp=True)
                 step_results["temp_final_audio_path"] = neg_audio_path
                 step_results["temp_final_video_path"] = neg_video_path
             else:
