@@ -132,7 +132,7 @@ video_to_audio_tab = gr.Interface(
 
 
 if __name__ == "__main__":
-    port = 8000
+    port = 7680
     gr.TabbedInterface([video_to_audio_tab, ],
                        ['Video-to-Audio', ]).launch(
                            server_port=port, allowed_paths=[output_dir])

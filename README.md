@@ -5,40 +5,16 @@ Official code for DeepSound-V1 -->
 <div align="center">
 <p align="center">
   <h2>DeepSound-V1</h2>
-  <!-- <a href="https://arxiv.org/abs/2412.15322">Paper</a> | <a href="https://hkchengrex.github.io/MMAudio">Webpage</a> | <a href="https://huggingface.co/hkchengrex/MMAudio/tree/main">Models</a> | <a href="https://huggingface.co/spaces/hkchengrex/MMAudio"> Huggingface Demo</a> | <a href="https://colab.research.google.com/drive/1TAaXCY2-kPk4xE4PwKB3EqFbSnkUuzZ8?usp=sharing">Colab Demo</a> | <a href="https://replicate.com/zsxkib/mmaudio">Replicate Demo</a> -->
-  <a href="https://github.com/lym0302/DeepSound-V1">Paper</a> | <a href="https://github.com/lym0302/DeepSound-V1">Webpage</a> | <a href="https://github.com/lym0302/DeepSound-V1"> Huggingface Demo</a>
+  <a href="https://github.com/lym0302/DeepSound-V1">Paper</a> |  <a href="https://huggingface.co/spaces/lym0302/DeepSound-V1"> Huggingface Demo</a>
 </p>
 </div>
 
 ## [DeepSound-V1: Start to Think Step-by-Step in the Audio Generation from Videos](https://github.com/lym0302/DeepSound-V1)
 
-<!-- [Ho Kei Cheng](https://hkchengrex.github.io/), [Masato Ishii](https://scholar.google.co.jp/citations?user=RRIO1CcAAAAJ), [Akio Hayakawa](https://scholar.google.com/citations?user=sXAjHFIAAAAJ), [Takashi Shibuya](https://scholar.google.com/citations?user=XCRO260AAAAJ), [Alexander Schwing](https://www.alexander-schwing.de/), [Yuki Mitsufuji](https://www.yukimitsufuji.com/) -->
-
-<!-- University of Illinois Urbana-Champaign, Sony AI, and Sony Group Corporation -->
-
-<!-- ICCV 2025 -->
 
 ## Highlight
 
 DeepSound-V1 is a framework enabling audio generation from videos towards initial step-by-step thinking without extra annotations based on the internal chain-of-thought (CoT) of Multi-modal large language model(MLLM).
-
-<!-- ## Results
-
-(All audio from our algorithm MMAudio)
-
-Videos from Sora:
-
-https://github.com/user-attachments/assets/82afd192-0cee-48a1-86ca-bd39b8c8f330
-
-Videos from Veo 2:
-
-https://github.com/user-attachments/assets/8a11419e-fee2-46e0-9e67-dfb03c48d00e
-
-Videos from MovieGen/Hunyuan Video/VGGSound:
-
-https://github.com/user-attachments/assets/29230d4e-21c1-4cf8-a221-c28f2af6d0ca
-
-For more results, visit https://hkchengrex.com/MMAudio/video_main.html. -->
 
 
 ## Installation
@@ -52,55 +28,113 @@ pip install -r reqirments.txt
 ```
 
 
-<!-- We have only tested this on Ubuntu.
-
-### Prerequisites
-
-We recommend using a [miniforge](https://github.com/conda-forge/miniforge) environment.
-
-- Python 3.9+
-- PyTorch **2.5.1+** and corresponding torchvision/torchaudio (pick your CUDA version https://pytorch.org/, pip install recommended)
-<!-- - ffmpeg<7 ([this is required by torchaudio](https://pytorch.org/audio/master/installation.html#optional-dependencies), you can install it in a miniforge environment with `conda install -c conda-forge 'ffmpeg<7'`) -->
-
-<!-- **1. Install prerequisite if not yet met:**
-
-```bash
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118 --upgrade
-```
-
-(Or any other CUDA versions that your GPUs/driver support) -->
-
-<!-- ```
-conda install -c conda-forge 'ffmpeg<7
-```
-(Optional, if you use miniforge and don't already have the appropriate ffmpeg) -->
-
-<!-- **2. Clone our repository:**
-
-```bash
-git clone https://github.com/lym0302/DeepSound-V1.git
-```
-
-**3. Install with pip (install pytorch first before attempting this!):**
-
-```bash
-cd DeepSound-V1
-pip install -e .
-```
-
-(If you encounter the File "setup.py" not found error, upgrade your pip with pip install --upgrade pip) --> 
-
-
-<!-- The models will be downloaded automatically when you run the demo script. MD5 checksums are provided in `mmaudio/utils/download_utils.py`.
-The models are also available at https://huggingface.co/hkchengrex/MMAudio/tree/main
-See [MODELS.md](docs/MODELS.md) for more details. -->
-
 ## Demo
 
 ### Pretrained models
 See [MODELS.md](docs/MODELS.md).
 
-### Command-line interface
+### Quick Start
+```bash
+# coding = utf-8
+
+import sys
+import os
+
+project_root = os.path.dirname(os.path.abspath(__file__))
+mmaudio_path = os.path.join(project_root, 'third_party', 'MMAudio')
+sys.path.append(mmaudio_path)
+
+import argparse
+
+from pipeline.pipeline import Pipeline
+from third_party.MMAudio.mmaudio.eval_utils import setup_eval_logging
+import os
+from moviepy.editor import AudioFileClip, VideoFileClip
+import torch
+from pathlib import Path
+import subprocess
+import time
+
+@torch.inference_mode()
+def init_pipeline(step0_model_dir='pretrained/mllm/VideoLLaMA2.1-7B-AV-CoT',
+                  step1_mode='mmaudio_medium_44k',
+                  step2_model_dir='cot',
+                  step2_mode='pretrained/mllm/VideoLLaMA2.1-7B-AV-CoT',
+                  step3_mode='bs_roformer',):
+    st = time.time()
+    pipeline = Pipeline(
+        step0_model_dir=step0_model_dir, 
+        step1_mode=step1_mode, 
+        step2_model_dir=step2_model_dir,
+        step2_mode=step2_mode,
+        step3_mode=step3_mode,
+    )
+    et = time.time()
+    print(f"Initialize models time: {et - st:.2f} s.")
+    return pipeline
+
+
+@torch.inference_mode()
+def video_to_audio(pipeline, video_input, output_dir, mode='s4', postp_mode='neg', prompt='', negative_prompt='', duration=10):
+    st_infer = time.time()
+    step_results = pipeline.run(video_input=video_input, 
+                                output_dir=output_dir,
+                                mode=mode,
+                                postp_mode=postp_mode,
+                                prompt=prompt,
+                                negative_prompt=negative_prompt,
+                                duration=duration)
+    
+    temp_final_audio_path = step_results["temp_final_audio_path"]
+    temp_final_video_path = step_results["temp_final_video_path"]
+    final_audio_path = str(Path(output_dir).expanduser() / f'{Path(video_input).expanduser().stem}.wav')
+    final_video_path = str(Path(output_dir).expanduser() / f'{Path(video_input).expanduser().stem}.mp4')
+
+    if temp_final_audio_path is not None:
+        subprocess.run(['cp', str(temp_final_audio_path), final_audio_path], check=True)
+        step_results["final_audio_path"] = final_audio_path
+        if args.skip_final_video:
+            step_results["final_video_path"] = None
+        else:
+            if temp_final_video_path is not None:
+                subprocess.run(['cp', str(temp_final_video_path), final_video_path], check=True)
+            else:
+                audio = AudioFileClip(final_audio_path)
+                video = VideoFileClip(video_input)
+                duration = min(audio.duration, video.duration)
+                audio = audio.subclip(0, duration)
+                video.audio = audio
+                video = video.subclip(0, duration)
+                video.write_videofile(final_video_path)
+            step_results["final_video_path"] = final_video_path
+
+    
+    et_infer = time.time()
+    print(f"Inference time: {et_infer - st_infer:.2f} s.")
+    return step_results
+
+
+@torch.inference_mode()
+def main():
+    setup_eval_logging()
+    video_input = "aa.mp4"
+    output_dir = "output"
+    os.makedirs(output_dir, exist_ok=True)
+    
+    pipeline = init_pipeline()
+    step_results = video_to_audio(pipeline, video_input, output_dir)
+
+    print("step_results: ", step_results)
+    print(f"final_audio_path: {step_results['final_audio_path']}")
+    print(f"final_video_path: {step_results['final_video_path']}")
+
+
+if __name__ == '__main__':
+    main()
+```
+
+The output (audio in `.wav` format, and video in `.mp4` format) will be saved in `./output`.
+
 
 With `demo.py`
 
@@ -108,22 +142,16 @@ With `demo.py`
 python demo.py -i <video_path>
 ```
 
-All training parameters are [here]().
+Other parameters are [here]().
 
-<!-- The output (audio in `.wav` format, and video in `.mp4` format) will be saved in `./output`.
-See the file for more options.
-Simply omit the `--video` option for text-to-audio synthesis.
-The default output (and training) duration is 8 seconds. Longer/shorter durations could also work, but a large deviation from the training duration may result in a lower quality. -->
 
-<!-- ### Gradio interface
 
-Supports video-to-audio and text-to-audio synthesis.
-You can also try experimental image-to-audio synthesis which duplicates the input image to a video for processing. This might be interesting to some but it is not something MMAudio has been trained for.
-Use [port forwarding](https://unix.stackexchange.com/questions/115897/whats-ssh-port-forwarding-and-whats-the-difference-between-ssh-local-and-remot) (e.g., `ssh -L 7860:localhost:7860 server`) if necessary. The default port is `7860` which you can specify with `--port`.
+
+### Gradio interface
 
 ```bash
 python gradio_demo.py
-``` -->
+```
 
 
 

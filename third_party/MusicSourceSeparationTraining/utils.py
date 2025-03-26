@@ -55,7 +55,7 @@ def load_config(model_type: str, config_path: str) -> Union[ConfigDict, OmegaCon
     except Exception as e:
         raise ValueError(f"Error loading configuration: {e}")
 
-
+'''
 def get_model_from_config(model_type: str, config_path: str) -> Tuple:
     """
     Load the model specified by the model type and configuration file.
@@ -126,7 +126,7 @@ def get_model_from_config(model_type: str, config_path: str) -> Tuple:
         raise ValueError(f"Unknown model type: {model_type}")
 
     return model, config
-
+'''
 
 def read_audio_transposed(path: str, instr: str = None, skip_err: bool = False) -> Tuple[np.ndarray, int]:
     """
