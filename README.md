@@ -18,7 +18,7 @@ DeepSound-V1 is a framework enabling audio generation from videos towards initia
 
 
 ## Demo
-step-by-step with CoT:
+Overall process:
 
 https://github.com/user-attachments/assets/40767fd0-0d77-4286-9644-b5d66412652e
 
