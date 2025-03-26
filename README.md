@@ -181,9 +181,6 @@ See [EVAL.md](docs/EVAL.md).
 }
 ``` -->
 
-## Relevant Repositories
-
-- [av-benchmark](https://github.com/hkchengrex/av-benchmark) for benchmarking results.
 
 
 ## Acknowledgement
@@ -192,4 +189,5 @@ Many thanks to:
 - [VideoLLaMA2](https://github.com/DAMO-NLP-SG/VideoLLaMA2) 
 - [MMAudio](https://github.com/hkchengrex/MMAudio) 
 - [FoleyCrafter](https://github.com/open-mmlab/FoleyCrafter)
-- [BS-RoFormer](https://github.com/ZFTurbo/Music-Source-Separation-Training) 
+- [BS-RoFormer](https://github.com/ZFTurbo/Music-Source-Separation-Training)
+- [av-benchmark](https://github.com/hkchengrex/av-benchmark)
