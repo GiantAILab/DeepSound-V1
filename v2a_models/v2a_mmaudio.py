@@ -89,8 +89,8 @@ class V2A_MMAudio:
 
         self.log.info(f'Prompt: {prompt}')
         self.log.info(f'Negative prompt: {negative_prompt}')
-        
         self.log.info(f"Generating Audio...")
+
         audios = generate(
             clip_frames,
             sync_frames,
