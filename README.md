@@ -29,6 +29,15 @@ pip install -r reqirments.txt
 
 
 ## Demo
+step-by-step with CoT:
+https://github.com/lym0302/DeepSound-V1/blob/main/demo_videos/2025-03-26_15-19-34.mkv
+
+Direct result:
+https://github.com/lym0302/DeepSound-V1/blob/main/demo_videos/aa.step1.mp4
+
+Step-by-step result:
+https://github.com/lym0302/DeepSound-V1/blob/main/demo_videos/aa.mp4
+
 
 ### Pretrained models
 See [MODELS.md](docs/MODELS.md).
