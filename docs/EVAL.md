@@ -128,6 +128,7 @@ python evaluate.py  --gt_audio <gt audio path> --gt_cache <gt cache path> --pred
 
 You can specify `--skip_clap` or `--skip_video_related` to speed up evaluation if you don't need those metrics.
 In our paper, we set `audio_length` to 10.
+We have also uploaded the extracted features to [feature_cache](https://huggingface.co/datasets/lym0302/DeepSound-V1/tree/main/feature_cache)
 
 
 ## Supporting Libraries

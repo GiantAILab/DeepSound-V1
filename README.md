@@ -139,7 +139,7 @@ With `demo.py`
 python demo.py -i <video_path>
 ```
 
-Other parameters are [here]().
+Other parameters are [here](https://github.com/lym0302/DeepSound-V1/blob/main/demo.py#L25).
 
 
 
