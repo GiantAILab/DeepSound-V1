@@ -30,16 +30,13 @@ pip install -r reqirments.txt
 
 ## Demo
 step-by-step with CoT:
-<p align="center" width="80%">
-<video controls src="https://github.com/lym0302/DeepSound-V1/blob/main/demo_videos/2025-03-26_15-19-34.mkv" title="v" width="100%"></video>
-</p>
-
+https://github.com/user-attachments/assets/40767fd0-0d77-4286-9644-b5d66412652e
 
 Direct result:
-https://github.com/lym0302/DeepSound-V1/blob/main/demo_videos/aa.step1.mp4
+https://github.com/user-attachments/assets/a0e1ff4d-3bf8-47a3-9b35-a28c5654610d
 
 Step-by-step result:
-https://github.com/lym0302/DeepSound-V1/blob/main/demo_videos/aa.mp4
+https://github.com/user-attachments/assets/96e65ec8-1631-4293-8c7f-244fc585e3aa
 
 
 ### Pretrained models
