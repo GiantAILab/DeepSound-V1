@@ -5,24 +5,32 @@ from .step1 import Step1
 from .step2 import Step2
 from .step3 import Step3
 from .step4 import Step4
+from .step02 import Step02
 import logging
 import re
 import os
 
 class Pipeline:
     def __init__(self, step0_model_dir, step1_mode, step2_model_dir, step2_mode, step3_mode):
-        self.step0 = Step0(step0_model_dir)
+        self.step02 = None
+        if step0_model_dir == step2_model_dir and step2_mode == 'cot':
+            self.step02 = Step02(step0_model_dir, step2_mode)
+        else:
+            self.step0 = Step0(step0_model_dir)
+            self.step2 = Step2(step2_model_dir, step2_mode)
+
         self.step1 = Step1(step1_mode)
-        self.step2 = Step2(step2_model_dir, step2_mode)
         self.step3 = Step3(model_type=step3_mode)
         self.step4 = Step4()
-        self.step_processors = [self.step1, self.step2, self.step3, self.step4]
         self.log = logging.getLogger(self.__class__.__name__)
         self.log.setLevel(logging.INFO)
         
 
     def run(self, video_input, output_dir, mode='s4', postp_mode='rep', prompt='', negative_prompt='', duration=10, seed=42):
-        step0_resp = self.step0.run(video_input)
+        if self.step02 is not None:
+            step0_resp = self.step02.run_step0(video_input)
+        else:
+            step0_resp = self.step0.run(video_input)
         step0_resp_list = re.findall(r'(Step\d:.*?)(?=Step\d:|$)', step0_resp, re.DOTALL)
         step_infos = [step_info.strip().split("\n")[0] for step_info in step0_resp_list]
         step3_temp_dir = os.path.join(output_dir, "remove_vo")
@@ -36,7 +44,10 @@ class Pipeline:
                 step_results["step1_video_path"] = step1_video_path
 
             elif step_info == 'Step2: Given a video and its generated audio, determine whether the audio contains voice-over.':
-                is_vo = self.step2.run(str(step_results["step1_video_path"]))
+                if self.step02 is not None:
+                    is_vo = self.step02.run_step2(str(step_results["step1_video_path"]))
+                else:
+                    is_vo = self.step2.run(str(step_results["step1_video_path"]))
                 step_results["is_vo"] = is_vo
                 if not step_results["is_vo"]: # not voice-over
                     step_results["temp_final_audio_path"] = step_results["step1_audio_path"]

@@ -36,15 +36,11 @@ See [MODELS.md](docs/MODELS.md).
 ### Quick Start
 ```bash
 # coding = utf-8
-
 import sys
 import os
-
 project_root = os.path.dirname(os.path.abspath(__file__))
 mmaudio_path = os.path.join(project_root, 'third_party', 'MMAudio')
 sys.path.append(mmaudio_path)
-
-import argparse
 
 from pipeline.pipeline import Pipeline
 from third_party.MMAudio.mmaudio.eval_utils import setup_eval_logging
@@ -58,8 +54,8 @@ import time
 @torch.inference_mode()
 def init_pipeline(step0_model_dir='pretrained/mllm/VideoLLaMA2.1-7B-AV-CoT',
                   step1_mode='mmaudio_medium_44k',
-                  step2_model_dir='cot',
-                  step2_mode='pretrained/mllm/VideoLLaMA2.1-7B-AV-CoT',
+                  step2_model_dir='pretrained/mllm/VideoLLaMA2.1-7B-AV-CoT',
+                  step2_mode='cot',
                   step3_mode='bs_roformer',):
     st = time.time()
     pipeline = Pipeline(
@@ -75,7 +71,8 @@ def init_pipeline(step0_model_dir='pretrained/mllm/VideoLLaMA2.1-7B-AV-CoT',
 
 
 @torch.inference_mode()
-def video_to_audio(pipeline, video_input, output_dir, mode='s4', postp_mode='neg', prompt='', negative_prompt='', duration=10):
+def video_to_audio(pipeline: Pipeline, video_input, output_dir, mode='s4', postp_mode='neg', 
+                   prompt='', negative_prompt='', duration=10, skip_final_video=False):
     st_infer = time.time()
     step_results = pipeline.run(video_input=video_input, 
                                 output_dir=output_dir,
@@ -93,7 +90,7 @@ def video_to_audio(pipeline, video_input, output_dir, mode='s4', postp_mode='neg
     if temp_final_audio_path is not None:
         subprocess.run(['cp', str(temp_final_audio_path), final_audio_path], check=True)
         step_results["final_audio_path"] = final_audio_path
-        if args.skip_final_video:
+        if skip_final_video:
             step_results["final_video_path"] = None
         else:
             if temp_final_video_path is not None:

@@ -14,9 +14,9 @@ import numpy as np
 # current_dir = os.path.dirname(os.path.abspath(__file__))
 # sys.path.append(current_dir)
 
-from third_party.MusicSourceSeparationTraining.utils import demix, get_model_from_config, normalize_audio, denormalize_audio, draw_spectrogram
+from third_party.MusicSourceSeparationTraining.utils import demix, load_config, normalize_audio, denormalize_audio, draw_spectrogram
 from third_party.MusicSourceSeparationTraining.utils import prefer_target_instrument, apply_tta, load_start_checkpoint
-
+from third_party.MusicSourceSeparationTraining.models.bs_roformer import BSRoformer
 import warnings
 
 warnings.filterwarnings("ignore")
@@ -41,7 +41,9 @@ class Step3:
         
         self.model_type = model_type
 
-        self.model, self.config = get_model_from_config(model_type, config_path)
+        # self.model, self.config = get_model_from_config(model_type, config_path)
+        self.config = load_config(model_type, config_path)
+        self.model = BSRoformer(**dict(self.config.model))
         args = argparse.Namespace()
         args.start_check_point = model_path
         args.model_type = model_type
