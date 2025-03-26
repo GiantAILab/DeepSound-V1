@@ -17,17 +17,6 @@ Official code for DeepSound-V1 -->
 DeepSound-V1 is a framework enabling audio generation from videos towards initial step-by-step thinking without extra annotations based on the internal chain-of-thought (CoT) of Multi-modal large language model(MLLM).
 
 
-## Installation
-```bash
-conda create -n deepsound-v1 python=3.10.16 -y
-conda activate deepsound-v1
-pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu120
-pip install flash-attn==2.5.8 --no-build-isolation
-pip install -e .
-pip install -r reqirments.txt
-```
-
-
 ## Demo
 step-by-step with CoT:
 
@@ -42,8 +31,20 @@ Step-by-step result:
 https://github.com/user-attachments/assets/96e65ec8-1631-4293-8c7f-244fc585e3aa
 
 
+## Installation
+```bash
+conda create -n deepsound-v1 python=3.10.16 -y
+conda activate deepsound-v1
+pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu120
+pip install flash-attn==2.5.8 --no-build-isolation
+pip install -e .
+pip install -r reqirments.txt
+```
+
 ### Pretrained models
 See [MODELS.md](docs/MODELS.md).
+
+## Infer
 
 ### Quick Start
 ```bash
