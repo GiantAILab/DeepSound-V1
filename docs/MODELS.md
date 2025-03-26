@@ -85,8 +85,8 @@ pretrained/v2a/foleycrafter
 ## Remove voice-over
 
 ### BS Roformer
-| Model    | Download link | File size |
-| -------- | ------- | ------- |
-| BS Roformer | <a href="https://github.com/TRvlvr/model_repo/releases/download/all_public_uvr_models/model_bs_roformer_ep_317_sdr_12.9755.ckpt"> Weights</a> <a href="https://raw.githubusercontent.com/ZFTurbo/Music-Source-Separation-Training/main/configs/viperx/model_bs_roformer_ep_317_sdr_12.9755.yaml"> Config</a>| 610M |
+| Model    | Download Weights | Download Config | File size |
+| -------- | ------- | ------- | ------- |
+| BS Roformer | <a href="https://github.com/TRvlvr/model_repo/releases/download/all_public_uvr_models/model_bs_roformer_ep_317_sdr_12.9755.ckpt"> Weights</a> | <a href="https://raw.githubusercontent.com/ZFTurbo/Music-Source-Separation-Training/main/configs/viperx/model_bs_roformer_ep_317_sdr_12.9755.yaml"> Config</a> |610M |
 
 This separation code also supports [other separation models](https://github.com/ZFTurbo/Music-Source-Separation-Training/blob/main/docs/pretrained_models.md). BS Roformer demonstrated the best performance in our separation tasks, so we selected it as the exclusive model for voice-over removal in our experiments. Download model to `pretrained/remove_vo/checkpoints`
