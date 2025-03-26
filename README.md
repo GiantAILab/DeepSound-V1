@@ -30,12 +30,15 @@ pip install -r reqirments.txt
 
 ## Demo
 step-by-step with CoT:
+
 https://github.com/user-attachments/assets/40767fd0-0d77-4286-9644-b5d66412652e
 
 Direct result:
+
 https://github.com/user-attachments/assets/a0e1ff4d-3bf8-47a3-9b35-a28c5654610d
 
 Step-by-step result:
+
 https://github.com/user-attachments/assets/96e65ec8-1631-4293-8c7f-244fc585e3aa
 
 
