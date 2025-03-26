@@ -4,10 +4,10 @@
 ### VideoLLaMA2
 | Model    | Download link | File size |
 | -------- | ------- | ------- |
-| MLLM, step-by-step, CoT | <a href="">MLLM-CoT</a> | ~17G |
-| MLLM, QA | <a href="">MLLM-QA</a> | ~17G |
+| MLLM, step-by-step, CoT | <a href="https://huggingface.co/lym0302/VideoLLaMA2.1-7B-AV-CoT">MLLM-CoT</a> | ~17G |
+| MLLM, QA | <a href="https://huggingface.co/lym0302/VideoLLaMA2.1-7B-AV-QA">MLLM-QA</a> | ~17G |
 
-Download to `pretrained/VideoLLaMA2`.
+Download to `pretrained/mllm/`.
 
 
 ## Video-to-Audio
@@ -35,7 +35,7 @@ The `_v2` model performs worse in benchmarking (e.g., in  Fréchet distance), bu
 The expected directory structure (full):
 
 ```bash
-pretrained/mmaudio
+pretrained/v2a/mmaudio
 ├── ext_weights
 │   ├── best_netG.pt
 │   ├── synchformer_state_dict.pth
@@ -53,7 +53,7 @@ pretrained/mmaudio
 The expected directory structure (minimal, for the `mmaudio_large_44k` model only):
 
 ```bash
-pretrained/mmaudio
+pretrained/v2a/mmaudio
 ├── ext_weights
 │   ├── synchformer_state_dict.pth
 │   └── v1-44.pth
@@ -70,7 +70,7 @@ pretrained/mmaudio
 | FoleyCrafter | <a href="https://huggingface.co/ymzhang319/FoleyCrafter">FoleyCrafter</a> | ~8G |
 
 ```bash
-pretrained/foleycrafter
+pretrained/v2a/foleycrafter
 ├── checkpoints
     ├── auffusion
     ├── semantic
@@ -89,4 +89,4 @@ pretrained/foleycrafter
 | -------- | ------- | ------- |
 | BS Roformer | <a href="https://github.com/TRvlvr/model_repo/releases/download/all_public_uvr_models/model_bs_roformer_ep_317_sdr_12.9755.ckpt"> Weights</a> <a href="https://raw.githubusercontent.com/ZFTurbo/Music-Source-Separation-Training/main/configs/viperx/model_bs_roformer_ep_317_sdr_12.9755.yaml"> Config</a>| 610M |
 
-This separation code also supports [other separation models](https://github.com/ZFTurbo/Music-Source-Separation-Training/blob/main/docs/pretrained_models.md). BS Roformer demonstrated the best performance in our separation tasks, so we selected it as the exclusive model for voice-over removal in our experiments. Download model to `pretrained/remove_vo`
+This separation code also supports [other separation models](https://github.com/ZFTurbo/Music-Source-Separation-Training/blob/main/docs/pretrained_models.md). BS Roformer demonstrated the best performance in our separation tasks, so we selected it as the exclusive model for voice-over removal in our experiments. Download model to `pretrained/remove_vo/checkpoints`
