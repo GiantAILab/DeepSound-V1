@@ -48,6 +48,8 @@ compared to previous methods, while the green text in brackets represents the im
 
 
 
+
+
 Ablation result on MMAudio-L-44k. The improvement between baseline and ours is represented as green color, demonstrating
 effectiveness of the learned CoT reasoning in enhancing the final audio quality, the improvement between Ours-s3 and Ours-s4 is represented as blue color.
 
@@ -58,7 +60,7 @@ effectiveness of the learned CoT reasoning in enhancing the final audio quality,
 | **setting1-neg & vggtest-gt1** | 59.50 | 4.62 | 1.75 | 2.19 | 1.76 | 15.42 | 32.36 | 0.490 |
 | **setting2-cot & vggtest-gt2** | **55.19(8.93%)** | **4.42(6.36%)** | **0.95(2.06%)** | 2.13 | 1.75 | 14.49 | 31.94 | 0.490 |
 | **setting3-rm & vggtest-gt2** | 55.75 | 4.49 | 1.00 | 2.12 | 1.73 | 14.70 | 32.25 | 0.484 |
-| **setting3-rep & vggtest-gt2** | **55.66(8.15%)** | **4.45(5.72%)** | **0.97(0.00%)** | 2.14 | **1.74(0.57%)** | **14.61(0.83%)** | **32.16(0.69%)** | **0.486(0.82%)** |
+| **setting3-rep & vggtest-gt2** | **55.66(8.15%)** | **4.45(5.72%)** | **0.97(0.00%)** | 2.14 | <span style="background-color: blue; color: white;">**1.74(0.57%)**</span> | **14.61(0.83%)** | **32.16(0.69%)** | **0.486(0.82%)** |
 | **setting3-neg & vggtest-gt2** | 55.66 | 4.44 | 0.99 | 2.13 | 1.74 | 14.65 | 32.17 | 0.487 |
 
 
