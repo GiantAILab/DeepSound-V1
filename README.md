@@ -11,7 +11,7 @@ Official code for DeepSound-V1 -->
 
 ## [DeepSound-V1: Start to Think Step-by-Step in the Audio Generation from Videos](https://github.com/lym0302/DeepSound-V1)
 
-[Yunming Liang](https://scholar.google.com/citations?user=YY0qAeUAAAAJ&hl=zh-CN), 
+[Yunming Liang](https://scholar.google.com/citations?user=YY0qAeUAAAAJ&hl=zh-CN), [Zihao Chen](https://scholar.google.com/citations?user=tFtcUVAAAAAJ&hl=zh-CN), ChaoFan Ding, [Xinhan Di](https://scholar.google.com/citations?hl=en&user=CDijR8YAAAAJ&view_op=list_works&sortby=pubdate)
 
 
 ## Highlight
