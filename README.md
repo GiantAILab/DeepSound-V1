@@ -149,6 +149,25 @@ https://github.com/user-attachments/assets/b3b95546-82ea-4fb3-88cd-26c2e00f8356
 </table>
 
 
+<table class='center'>
+<tr>
+  <td style="text-align: center">Direct Result</td>
+  <td style="text-align: center">Step-by-step Result</td>
+</tr>
+<tr>
+  <td>
+    <video width="300" controls>
+      <source src="https://github.com/user-attachments/assets/a0e1ff4d-3bf8-47a3-9b35-a28c5654610d" type="video/mp4">
+    </video>
+  </td>
+  <td>
+    <video width="300" controls>
+      <source src="https://github.com/user-attachments/assets/96e65ec8-1631-4293-8c7f-244fc585e3aa" type="video/mp4">
+    </video>
+  </td>
+</tr>
+</table>
+
 
 ## Installation
 ```bash
