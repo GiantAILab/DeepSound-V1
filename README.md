@@ -20,7 +20,7 @@ DeepSound-V1 is a framework enabling audio generation from videos towards initia
 
 ## Main Results
 
-|V2A Model| Method&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| $FD_{PaSST}\downarrow$ | $FD_{PANNs}\downarrow$ | $FD_{VGG}\downarrow$ | $KL_{PANNs}\downarrow$ | $KL_{PaSST}\downarrow$ | $IS\uparrow$ | $IB\text{-}score\uparrow$ | $DeSync\downarrow$ |
+|V2A Model&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Method&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| $FD_{PaSST}\downarrow$ | $FD_{PANNs}\downarrow$ | $FD_{VGG}\downarrow$ | $KL_{PANNs}\downarrow$ | $KL_{PaSST}\downarrow$ | $IS\uparrow$ | $IB\text{-}score\uparrow$ | $DeSync\downarrow$ |
 |----------------------------------------|----------------------------------------|------------------------|------------------------|-----------------------|------------------------|------------------------|--------------|---------------------------|---------------------|
 |**MMAudio-S-44k**| Direct \& Ori-Set | 65.25 | 5.55 | 1.66 | 1.67 | 1.44 | 18.02 | 32.27 | 0.444 |
 || Direct \& VO-Free  | 65.47 | 5.77  | 1.03 | 2.22  | 1.82  | 13.32  | 31.16 | 0.487|
