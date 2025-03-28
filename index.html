@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
-    <title>DeepAudio-V1</title>
+    <title>DeepSound-V1</title>
 
     <link rel="icon" type="image/png" href="images/icon.png">
 
@@ -33,7 +33,7 @@
         <div class="container">
             <div class="row text-center" style="font-size:38px">
                 <div class="col strong">
-                    DeepAudio-V1:Towards Multi-Modal Multi-Stage End-to-End <br>Video to Speech and Audio Generation
+                  DeepSound-V1: Start to Think Step-by-Step in the Audio Generation from Videos
                 </div>
             </div>
 			
@@ -45,13 +45,13 @@
                     <a href="https://arxiv.org">[Paper]</a>
                 </div>
                 <div class="col-sm-2">
-                    <a href="https://github.com/acappemin/DeepAudio-V1">[Code]</a>
+                    <a href="https://github.com/lym0302/DeepSound-V1">[Code]</a>
                 </div>
                 <div class="col-sm-3">
-                    <a href="https://huggingface.co/spaces/lshzhm/DeepAudio-V1">[Huggingface Demo]</a>
+                    <a href="https://huggingface.co/spaces/lym0302/DeepSound-V1">[Huggingface Demo]</a>
                 </div>
 				<div class="col-sm-2">
-                    <a href="https://huggingface.co/lshzhm/DeepAudio-V1/tree/main">[Models]</a>
+                    <a href="https://huggingface.co/lym0302/VideoLLaMA2.1-7B-AV-CoT">[Models]</a>
                 </div>
             </div>
 			
@@ -72,7 +72,20 @@
 			<br>
             <br>
 			
-			Currently, high-quality, synchronized audio is synthesized using various multi-modal joint learning frameworks, leveraging video and optional text inputs. In the video-to-audio benchmarks, video-to-audio quality, semantic alignment, and audio-visual synchronization are effectively achieved.However, in real-world scenarios, speech and audio often coexist in videos simultaneously, and the end-to-end generation of synchronous speech and audio given video and text conditions are not well studied. Therefore, we propose an end-to-end multi-modal generation framework that simultaneously produces speech and audio based on video and text conditions. Furthermore, the advantages of video-to-audio (V2A) models for generating speech from videos remain unclear. The proposed framework, DeepAudio, consists of a video-to-audio (V2A) module, a text-to-speech (TTS) module, and a dynamic mixture of modality fusion (MoF) module. In the evaluation, the proposed end-to-end framework achieves state-of-the-art performance on the video-audio benchmark, video-speech benchmark, and text-speech benchmark. In detail, our framework achieves comparable results in the comparison with state-of-the-art models for the video-audio and text-speech benchmarks, and surpassing state-of-the-art models in the video-speech benchmark, with WER 16.57% to 3.15% (+80.99%), SPK-SIM 78.30% to 89.38% (+14.15%), EMO-SIM 66.24% to 75.56% (+14.07%), MCD 8.59 to 7.98 (+7.10%), MCD_SL 11.05 to 9.40 (+14.93%) across a variety of dubbing settings.
+            Currently, high-quality, synchronized audio is synthesized from video and optional text inputs using 
+            various multi-modal joint learning frameworks. However, the precise alignment between the visual and 
+            generated audio domains remains far from satisfactory. One key factor is the lack of sufficient temporal 
+            and semantic alignment annotations in open-source video-audio and text-audio benchmarks. Therefore, we 
+            propose a framework for audio generation from videos, leveraging the internal chain-of-thought (CoT) of 
+            a multi-modal large language model (MLLM) to enable step-by-step reasoning without requiring additional 
+            annotations. Additionally, a corresponding multi-modal reasoning dataset is constructed to facilitate the 
+            learning of initial reasoning in audio generation. In the experiments, we demonstrate the effectiveness 
+            of the proposed framework in reducing misalignment (voice-over) in generated audio and achieving competitive 
+            performance compared to various state-of-the-art models. The evaluation results show that the proposed 
+            method outperforms state-of-the-art approaches across multiple metrics. Specifically, the $FD_{PaSST}$ 
+            indicator is reduced by up to 10.07\%, the $FD_{PANNs}$ indicator by up to 11.62\%, and the $FD_{VGG}$ 
+            indicator by up to 38.61\%. Furthermore, the IS indicator improves by up to 4.95\%, the IB-score indicator 
+            increases by up to 6.39\%, and the DeSync indicator is reduced by up to 0.89\%.
 			
 			<br>
 			<br>
@@ -91,14 +104,14 @@
             <br>
 			<br>
 			
-			<div class="row" style="font-size:32px">
+			<!-- <div class="row" style="font-size:32px">
                 <div class="col strong">
                     Video-to-Speech
                 </div>
             </div>
 			
 			<br>
-			<br>
+			<br> -->
 			
 			<div style="padding: 0 0; text-align: center; display: flex; justify-content: space-around;">
 				<p style="text-align: center;">Ground Truth</p>
@@ -148,163 +161,7 @@
 			<br>
 			<br>
 			
-			<div class="row" style="font-size:32px">
-                <div class="col strong">
-                    Video-to-Audio
-                </div>
-            </div>
 			
-			<br>
-			<br>
-
-			<div class="row">
-				<video style="width: 49%;" controls>
-					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/videos2/-c6baaENcjA_000204.mp4">
-				</video>
-				<video style="width: 49%;" controls>
-					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/videos2/-2sOH8XovEE_000484.mp4">
-				</video>
-			</div>
-			<div class="row">
-				<video style="width: 49%;" controls>
-					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/videos2/-2-wdcN5vOw_000017.mp4">
-				</video>
-				<video style="width: 49%;" controls>
-					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/videos2/-Cv3gOXEoxA_000040.mp4">
-				</video>
-			</div>
-			<div class="row">
-				<video style="width: 49%;" controls>
-					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/videos2/-23CeprtibU_000030.mp4">
-				</video>
-				<video style="width: 49%;" controls>
-					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/videos2/-615mGonUqU_000232.mp4">
-				</video>
-			</div>
-			<div class="row">
-				<video style="width: 49%;" controls>
-					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/videos2/-0pJqpNjft4_000267.mp4">
-				</video>
-				<video style="width: 49%;" controls>
-					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/videos2/-AMsYmKRnWE_000008.mp4">
-				</video>
-			</div>
-			<div class="row">
-				<video style="width: 49%;" controls>
-					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/videos2/-fAVezaAX18_000126.mp4">
-				</video>
-				<video style="width: 49%;" controls>
-					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/videos2/-7YESdyyHVw_000010.mp4">
-				</video>
-			</div>
-			
-			<br>
-			<br>
-			
-			<div class="row" style="font-size:32px">
-                <div class="col strong">
-                    Text-to-Speech
-                </div>
-            </div>
-			
-			<br>
-			<br>
-			
-			<div style="padding: 0 0; text-align: center; display: flex; justify-content: space-around;">
-				<p style="text-align: center;">Speech Prompt</p>
-				<p style="text-align: center;">Transcription</p>
-				<p style="text-align: center;">Generated Speech</p>
-			</div>
-			<div class="row">
-				<audio style="width: 33%;" controls>
-					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/ref/00000000.wav">
-				</audio>
-				<p style="width: 33%; font-size: 75%;">But the more forgetfulness had then prevailed, the more powerful was the force of remembrance when she awoke.</p>
-				<audio style="width: 33%;" controls>
-					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/gen/00000000.wav">
-				</audio>
-			</div>
-			<div class="row">
-				<audio style="width: 33%;" controls>
-					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/ref/00000100.wav">
-				</audio>
-				<p style="width: 33%; font-size: 75%;">Oh, let him come along"! she urged. "I do love to see him about that old house.</p>
-				<audio style="width: 33%;" controls>
-					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/gen/00000100.wav">
-				</audio>
-			</div>
-			<div class="row">
-				<audio style="width: 33%;" controls>
-					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/ref/00000200.wav">
-				</audio>
-				<p style="width: 33%; font-size: 75%;">Oh, she's always at the piano," said Van. "She must be there now, somewhere," and then somebody laughed.</p>
-				<audio style="width: 33%;" controls>
-					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/gen/00000200.wav">
-				</audio>
-			</div>
-			<div class="row">
-				<audio style="width: 33%;" controls>
-					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/ref/00000400.wav">
-				</audio>
-				<p style="width: 33%; font-size: 75%;">But in Egypt the traditions of our own and other lands are by us registered for ever in our temples.</p>
-				<audio style="width: 33%;" controls>
-					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/gen/00000400.wav">
-				</audio>
-			</div>
-			<div class="row">
-				<audio style="width: 33%;" controls>
-					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/ref/00000500.wav">
-				</audio>
-				<p style="width: 33%; font-size: 75%;">Ruth sat quite still for a time, with face intent and flushed. It was out now.</p>
-				<audio style="width: 33%;" controls>
-					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/gen/00000500.wav">
-				</audio>
-			</div>
-			<div class="row">
-				<audio style="width: 33%;" controls>
-					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/ref/00000700.wav">
-				</audio>
-				<p style="width: 33%; font-size: 75%;">You must look at him in the face - fight him - conquer him with what scathe you may: you need not think to keep out of the way of him.</p>
-				<audio style="width: 33%;" controls>
-					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/gen/00000700.wav">
-				</audio>
-			</div>
-			<div class="row">
-				<audio style="width: 33%;" controls>
-					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/ref/00000800.wav">
-				</audio>
-				<p style="width: 33%; font-size: 75%;">Her manner was neither independent nor assertive, but rather one of well bred composure and calm reliance.</p>
-				<audio style="width: 33%;" controls>
-					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/gen/00000800.wav">
-				</audio>
-			</div>
-			<div class="row">
-				<audio style="width: 33%;" controls>
-					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/ref/00000900.wav">
-				</audio>
-				<p style="width: 33%; font-size: 75%;">But, young sharp tongue, now that we have caught you we will put you into a trap that you cannot get out of.</p>
-				<audio style="width: 33%;" controls>
-					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/gen/00000900.wav">
-				</audio>
-			</div>
-			<div class="row">
-				<audio style="width: 33%;" controls>
-					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/ref/00001000.wav">
-				</audio>
-				<p style="width: 33%; font-size: 75%;">Uncas cast his skin, and stepped forth in his own beautiful proportions.</p>
-				<audio style="width: 33%;" controls>
-					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/gen/00001000.wav">
-				</audio>
-			</div>
-			<div class="row">
-				<audio style="width: 33%;" controls>
-					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/ref/00001100.wav">
-				</audio>
-				<p style="width: 33%; font-size: 75%;">But don't these very wise things sometimes turn out very foolishly?</p>
-				<audio style="width: 33%;" controls>
-					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/gen/00001100.wav">
-				</audio>
-			</div>
 			
             <br>
             <br>
