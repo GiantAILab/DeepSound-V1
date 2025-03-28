@@ -20,6 +20,9 @@ DeepSound-V1 is a framework enabling audio generation from videos towards initia
 
 ## Main Results
 
+Video-to-audio results on the VGGSound test set. The bold text highlights the superior performance of our proposed method
+compared to previous methods, while the green text in brackets represents the improvement rate of each index.
+
 |V2A Model&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Method&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| $FD_{PaSST}\downarrow$ | $FD_{PANNs}\downarrow$ | $FD_{VGG}\downarrow$ | $KL_{PANNs}\downarrow$ | $KL_{PaSST}\downarrow$ | $IS\uparrow$ | $IB\text{-}score\uparrow$ | $DeSync\downarrow$ |
 |----------------------------------------|----------------------------------------|------------------------|------------------------|-----------------------|------------------------|------------------------|--------------|---------------------------|---------------------|
 |**MMAudio-S-44k**| Direct \& Ori-Set | 65.25 | 5.55 | 1.66 | 1.67 | 1.44 | 18.02 | 32.27 | 0.444 |
