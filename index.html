@@ -1,396 +1,715 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
-    <!-- Replace the content tag with appropriate information -->
-    <meta name="description" content="DESCRIPTION META TAG" />
-    <meta property="og:title" content="SOCIAL MEDIA TITLE TAG" />
-    <meta
-      property="og:description"
-      content="SOCIAL MEDIA DESCRIPTION TAG TAG"
-    />
-    <meta property="og:url" content="URL OF THE WEBSITE" />
-    <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
-    <meta property="og:image" content="static/image/your_banner_image.png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0JKBJ3WRJZ"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-0JKBJ3WRJZ');
+    </script>
 
-    <meta name="twitter:title" content="TWITTER BANNER TITLE META TAG" />
-    <meta
-      name="twitter:description"
-      content="TWITTER BANNER DESCRIPTION META TAG"
-    />
-    <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
-    <meta
-      name="twitter:image"
-      content="static/images/your_twitter_banner_image.png"
-    />
-    <meta name="twitter:card" content="summary_large_image" />
-    <!-- Keywords for your paper to be indexed by-->
-    <meta name="keywords" content="KEYWORDS SHOULD BE PLACED HERE" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>DeepAudio-V1</title>
 
-    <title>DeepDubber-V1</title>
-    <link rel="icon" type="image/x-icon" href="static/images/favicon.ico" />
-    <link
-      href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-      rel="stylesheet"
-    />
+    <link rel="icon" type="image/png" href="images/icon.png">
 
-    <link rel="stylesheet" href="static/css/bulma.min.css" />
-    <link rel="stylesheet" href="static/css/bulma-carousel.min.css" />
-    <link rel="stylesheet" href="static/css/bulma-slider.min.css" />
-    <link rel="stylesheet" href="static/css/fontawesome.all.min.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css"
-    />
-    <link rel="stylesheet" href="static/css/index.css" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
-    <script defer src="static/js/fontawesome.all.min.js"></script>
-    <script src="static/js/bulma-carousel.min.js"></script>
-    <script src="static/js/bulma-slider.min.js"></script>
-    <script src="static/js/index.js"></script>
-  </head>
-  <body>
-    <section class="hero is-light">
-      <div class="hero-body">
-        <div class="container is-max-desktop">
-          <div class="columns is-centered">
-            <div class="column has-text-centered">
-              <h1 class="title is-1 publication-title">
-                DeepSound-V1: Start to Think Step-by-Step in the Audio Generation from Videos
-              </h1>
-              <!-- <div class="is-size-5 publication-authors"> -->
-              <!-- Paper authors -->
-              <!-- <span class="author-block"> -->
-              <!-- <a href="FIRST AUTHOR PERSONAL LINK" target="_blank" -->
-              <!-- >First Author</a -->
-              <!-- ><sup>*</sup>,</span -->
-              <!-- > -->
-              <!-- <span class="author-block"> -->
-              <!-- <a href="SECOND AUTHOR PERSONAL LINK" target="_blank" -->
-              <!-- >Second Author</a -->
-              <!-- ><sup>*</sup>,</span -->
-              <!-- > -->
-              <!-- <span class="author-block"> -->
-              <!-- <a href="THIRD AUTHOR PERSONAL LINK" target="_blank" -->
-              <!-- >Third Author</a -->
-              <!-- > -->
-              <!-- </span> -->
-              <!-- </div> -->
 
-              <!-- <div class="is-size-5 publication-authors">
-                <span class="author-block"
-                  >Institution Name<br />Conferance name and year</span
-                >
-                <span class="eql-cntrb"
-                  ><small
-                    ><br /><sup>*</sup>Indicates Equal Contribution</small
-                  ></span
-                >
-              </div> -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-              <div class="column has-text-centered">
-                <div class="publication-links">
-                  <!-- Arxiv PDF link -->
-                  <span class="link-block">
-                    <a
-                      href="https://arxiv.org/pdf/<ARXIV PAPER ID>.pdf"
-                      target="_blank"
-                      class="external-link button is-normal is-rounded is-dark"
-                    >
-                      <span class="icon">
-                        <i class="fas fa-file-pdf"></i>
-                      </span>
-                      <span>Paper</span>
-                    </a>
-                  </span>
-
-                  <!-- Supplementary PDF link -->
-                  <!-- <span class="link-block">
-                    <a
-                      href="static/pdfs/supplementary_material.pdf"
-                      target="_blank"
-                      class="external-link button is-normal is-rounded is-dark"
-                    >
-                      <span class="icon">
-                        <i class="fas fa-file-pdf"></i>
-                      </span>
-                      <span>Supplementary</span>
-                    </a>
-                  </span> -->
-
-                  <!-- Github link -->
-                  <span class="link-block">
-                    <a
-                      href="https://github.com/woka-0a/DeepDubber-V1"
-                      target="_blank"
-                      class="external-link button is-normal is-rounded is-dark"
-                    >
-                      <span class="icon">
-                        <i class="fab fa-github"></i>
-                      </span>
-                      <span>Code</span>
-                    </a>
-                  </span>
-
-                  <!-- ArXiv abstract Link -->
-                  <span class="link-block">
-                    <a
-                      href="https://arxiv.org/abs/<ARXIV PAPER ID>"
-                      target="_blank"
-                      class="external-link button is-normal is-rounded is-dark"
-                    >
-                      <span class="icon">
-                        <i class="ai ai-arxiv"></i>
-                      </span>
-                      <span>arXiv</span>
-                    </a>
-                  </span>
+    <body>
+        <br><br><br><br>
+        <div class="container">
+            <div class="row text-center" style="font-size:38px">
+                <div class="col strong">
+                    DeepAudio-V1:Towards Multi-Modal Multi-Stage End-to-End <br>Video to Speech and Audio Generation
                 </div>
-              </div>
             </div>
-          </div>
+			
+            <br>
+            <br>
+    
+            <div class="h-100 row text-center justify-content-md-center" style="font-size:20px;">
+                <div class="col-sm-2">
+                    <a href="https://arxiv.org">[Paper]</a>
+                </div>
+                <div class="col-sm-2">
+                    <a href="https://github.com/acappemin/DeepAudio-V1">[Code]</a>
+                </div>
+                <div class="col-sm-3">
+                    <a href="https://huggingface.co/spaces/lshzhm/DeepAudio-V1">[Huggingface Demo]</a>
+                </div>
+				<div class="col-sm-2">
+                    <a href="https://huggingface.co/lshzhm/DeepAudio-V1/tree/main">[Models]</a>
+                </div>
+            </div>
+			
+			<br>
+            <br>
+			
+			<hr>
+			
+			<br>
+            <br>
+			
+			<div class="row" style="font-size:32px">
+                <div class="col strong">
+                    Abstract
+                </div>
+            </div>
+			
+			<br>
+            <br>
+			
+			Currently, high-quality, synchronized audio is synthesized using various multi-modal joint learning frameworks, leveraging video and optional text inputs. In the video-to-audio benchmarks, video-to-audio quality, semantic alignment, and audio-visual synchronization are effectively achieved.However, in real-world scenarios, speech and audio often coexist in videos simultaneously, and the end-to-end generation of synchronous speech and audio given video and text conditions are not well studied. Therefore, we propose an end-to-end multi-modal generation framework that simultaneously produces speech and audio based on video and text conditions. Furthermore, the advantages of video-to-audio (V2A) models for generating speech from videos remain unclear. The proposed framework, DeepAudio, consists of a video-to-audio (V2A) module, a text-to-speech (TTS) module, and a dynamic mixture of modality fusion (MoF) module. In the evaluation, the proposed end-to-end framework achieves state-of-the-art performance on the video-audio benchmark, video-speech benchmark, and text-speech benchmark. In detail, our framework achieves comparable results in the comparison with state-of-the-art models for the video-audio and text-speech benchmarks, and surpassing state-of-the-art models in the video-speech benchmark, with WER 16.57% to 3.15% (+80.99%), SPK-SIM 78.30% to 89.38% (+14.15%), EMO-SIM 66.24% to 75.56% (+14.07%), MCD 8.59 to 7.98 (+7.10%), MCD_SL 11.05 to 9.40 (+14.93%) across a variety of dubbing settings.
+			
+			<br>
+			<br>
+			
+			<hr>
+			
+			<br>
+            <br>
+			
+            <div class="row" style="font-size:32px">
+                <div class="col strong">
+                    Demos
+                </div>
+            </div>
+			
+            <br>
+			<br>
+			
+			<div class="row" style="font-size:32px">
+                <div class="col strong">
+                    Video-to-Speech
+                </div>
+            </div>
+			
+			<br>
+			<br>
+			
+			<div style="padding: 0 0; text-align: center; display: flex; justify-content: space-around;">
+				<p style="text-align: center;">Ground Truth</p>
+				<p style="text-align: center;">Generated Audios</p>
+			</div>
+			<div class="row">
+				<video style="width: 49%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/videos/00000001.gt.mp4">
+				</video>
+				<video style="width: 49%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/videos/00000001.gen.mp4">
+				</video>
+			</div>
+			<div class="row">
+				<video style="width: 49%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/videos/00000003.gt.mp4">
+				</video>
+				<video style="width: 49%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/videos/00000003.gen.mp4">
+				</video>
+			</div>
+			<div class="row">
+				<video style="width: 49%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/videos/00000024.gt.mp4">
+				</video>
+				<video style="width: 49%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/videos/00000024.gen.mp4">
+				</video>
+			</div>
+			<div class="row">
+				<video style="width: 49%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/videos/00000025.gt.mp4">
+				</video>
+				<video style="width: 49%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/videos/00000025.gen.mp4">
+				</video>
+			</div>
+			<div class="row">
+				<video style="width: 49%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/videos/00000111.gt.mp4">
+				</video>
+				<video style="width: 49%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/videos/00000111.gen.mp4">
+				</video>
+			</div>
+
+			<br>
+			<br>
+			
+			<div class="row" style="font-size:32px">
+                <div class="col strong">
+                    Video-to-Audio
+                </div>
+            </div>
+			
+			<br>
+			<br>
+
+			<div class="row">
+				<video style="width: 49%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/videos2/-c6baaENcjA_000204.mp4">
+				</video>
+				<video style="width: 49%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/videos2/-2sOH8XovEE_000484.mp4">
+				</video>
+			</div>
+			<div class="row">
+				<video style="width: 49%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/videos2/-2-wdcN5vOw_000017.mp4">
+				</video>
+				<video style="width: 49%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/videos2/-Cv3gOXEoxA_000040.mp4">
+				</video>
+			</div>
+			<div class="row">
+				<video style="width: 49%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/videos2/-23CeprtibU_000030.mp4">
+				</video>
+				<video style="width: 49%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/videos2/-615mGonUqU_000232.mp4">
+				</video>
+			</div>
+			<div class="row">
+				<video style="width: 49%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/videos2/-0pJqpNjft4_000267.mp4">
+				</video>
+				<video style="width: 49%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/videos2/-AMsYmKRnWE_000008.mp4">
+				</video>
+			</div>
+			<div class="row">
+				<video style="width: 49%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/videos2/-fAVezaAX18_000126.mp4">
+				</video>
+				<video style="width: 49%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/videos2/-7YESdyyHVw_000010.mp4">
+				</video>
+			</div>
+			
+			<br>
+			<br>
+			
+			<div class="row" style="font-size:32px">
+                <div class="col strong">
+                    Text-to-Speech
+                </div>
+            </div>
+			
+			<br>
+			<br>
+			
+			<div style="padding: 0 0; text-align: center; display: flex; justify-content: space-around;">
+				<p style="text-align: center;">Speech Prompt</p>
+				<p style="text-align: center;">Transcription</p>
+				<p style="text-align: center;">Generated Speech</p>
+			</div>
+			<div class="row">
+				<audio style="width: 33%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/ref/00000000.wav">
+				</audio>
+				<p style="width: 33%; font-size: 75%;">But the more forgetfulness had then prevailed, the more powerful was the force of remembrance when she awoke.</p>
+				<audio style="width: 33%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/gen/00000000.wav">
+				</audio>
+			</div>
+			<div class="row">
+				<audio style="width: 33%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/ref/00000100.wav">
+				</audio>
+				<p style="width: 33%; font-size: 75%;">Oh, let him come along"! she urged. "I do love to see him about that old house.</p>
+				<audio style="width: 33%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/gen/00000100.wav">
+				</audio>
+			</div>
+			<div class="row">
+				<audio style="width: 33%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/ref/00000200.wav">
+				</audio>
+				<p style="width: 33%; font-size: 75%;">Oh, she's always at the piano," said Van. "She must be there now, somewhere," and then somebody laughed.</p>
+				<audio style="width: 33%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/gen/00000200.wav">
+				</audio>
+			</div>
+			<div class="row">
+				<audio style="width: 33%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/ref/00000400.wav">
+				</audio>
+				<p style="width: 33%; font-size: 75%;">But in Egypt the traditions of our own and other lands are by us registered for ever in our temples.</p>
+				<audio style="width: 33%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/gen/00000400.wav">
+				</audio>
+			</div>
+			<div class="row">
+				<audio style="width: 33%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/ref/00000500.wav">
+				</audio>
+				<p style="width: 33%; font-size: 75%;">Ruth sat quite still for a time, with face intent and flushed. It was out now.</p>
+				<audio style="width: 33%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/gen/00000500.wav">
+				</audio>
+			</div>
+			<div class="row">
+				<audio style="width: 33%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/ref/00000700.wav">
+				</audio>
+				<p style="width: 33%; font-size: 75%;">You must look at him in the face - fight him - conquer him with what scathe you may: you need not think to keep out of the way of him.</p>
+				<audio style="width: 33%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/gen/00000700.wav">
+				</audio>
+			</div>
+			<div class="row">
+				<audio style="width: 33%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/ref/00000800.wav">
+				</audio>
+				<p style="width: 33%; font-size: 75%;">Her manner was neither independent nor assertive, but rather one of well bred composure and calm reliance.</p>
+				<audio style="width: 33%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/gen/00000800.wav">
+				</audio>
+			</div>
+			<div class="row">
+				<audio style="width: 33%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/ref/00000900.wav">
+				</audio>
+				<p style="width: 33%; font-size: 75%;">But, young sharp tongue, now that we have caught you we will put you into a trap that you cannot get out of.</p>
+				<audio style="width: 33%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/gen/00000900.wav">
+				</audio>
+			</div>
+			<div class="row">
+				<audio style="width: 33%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/ref/00001000.wav">
+				</audio>
+				<p style="width: 33%; font-size: 75%;">Uncas cast his skin, and stepped forth in his own beautiful proportions.</p>
+				<audio style="width: 33%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/gen/00001000.wav">
+				</audio>
+			</div>
+			<div class="row">
+				<audio style="width: 33%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/ref/00001100.wav">
+				</audio>
+				<p style="width: 33%; font-size: 75%;">But don't these very wise things sometimes turn out very foolishly?</p>
+				<audio style="width: 33%;" controls>
+					<source src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/audios/gen/00001100.wav">
+				</audio>
+			</div>
+			
+            <br>
+            <br>
+			
+            <hr>
+			
+			<br>
+            <br>
+			
+			<div class="row" style="font-size:32px">
+                <div class="col strong">
+                    Method
+                </div>
+            </div>
+			
+			<br>
+            <br>
+            
+			<img src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/images/Fig_2_2.png" alt="overview" style="width:100%;">
+			
+			<br>
+			
+			Figure 1: The overview of DeepAudio framework. The proposed DeepAudio framework unifies video-to-audio (V2A) and video-to-speech (V2S) generation in a multi-stage, end-to-end paradigm. The top section illustrates two independent generation paths: (1) The V2A module, which synthesizes ambient audio from video input using a CLIP-based multi-modal feature encoding and a noised latent representation, and (2) The TTS module, which generates speech conditioned on text and noised latent features. Both modules rely on codec decoders to reconstruct high-fidelity outputs. The bottom section presents the MoF module, an integrated multi-modal system that takes text, video, and instructions as inputs. A Gating Network adaptively fuses outputs from the V2A module and the TTS module, ensuring synchronized and context-aware audio-visual generation.
+			
+			<br>
+            <br>
+			
+			<img src="https://acappemin.github.io/DeepAudio-V1.github.io/assets/images/specs_3.jpg" alt="spectrograms" style="width:100%;">
+			
+			<br>
+			
+			Figure 2: Mel-spectrograms of ground truth and synthesized audio samples from different methods under V2C-Animation Dub 2.0 setting.
+			
+			<br>
+            <br>
+			
+			<hr>
+			
+			<br>
+            <br>
+			
+			<div class="row" style="font-size:32px">
+                <div class="col strong">
+                    Results
+                </div>
+            </div>
+			
+			<br>
+            <br>
+			
+			<table border="1" cellpadding="5" cellspacing="0" style="width: 100%; text-align: center;">
+			  <thead>
+				<tr>
+				  <th rowspan="2">V2S Task</th>
+				  <th></th>
+				  <th colspan="5">V2C-Animation Dub 1.0</th>
+				  <th colspan="5">V2C-Animation Dub 2.0</th>
+				  <th colspan="2">V2C-Animation Dub 3.0</th>
+				</tr>
+				<tr>
+				  <th>Params</th>
+				  <th>WER(%)↓</th>
+				  <th>SPK-SIM(%)↑</th>
+				  <th>EMO-SIM(%)↑</th>
+				  <th>MCD↓</th>
+				  <th>MCD_SL↓</th>
+				  <th>WER(%)↓</th>
+				  <th>SPK-SIM(%)↑</th>
+				  <th>EMO-SIM(%)↑</th>
+				  <th>MCD↓</th>
+				  <th>MCD_SL↓</th>
+				  <th>WER(%)↓</th>
+				  <th>SPK-SIM(%)↑</th>
+				</tr>
+			  </thead>
+			  <tbody>
+				<tr>
+				  <td>GT</td>
+				  <td></td>
+				  <td>16.10</td>
+				  <td>100</td>
+				  <td>100</td>
+				  <td>0</td>
+				  <td>0</td>
+				  <td>16.10</td>
+				  <td>100</td>
+				  <td>100</td>
+				  <td>0</td>
+				  <td>0</td>
+				  <td>10.19</td>
+				  <td>100</td>
+				</tr>
+				<tr>
+				  <td>HPMDubbing</td>
+				  <td>69M</td>
+				  <td>151.02</td>
+				  <td>73.64</td>
+				  <td>39.85</td>
+				  <td>8.59</td>
+				  <td>8.32</td>
+				  <td>150.83</td>
+				  <td>73.01</td>
+				  <td>34.69</td>
+				  <td><strong>9.11</strong></td>
+				  <td>12.15</td>
+				  <td>126.85</td>
+				  <td>68.14</td>
+				</tr>
+				<tr>
+				  <td>Speaker2Dub</td>
+				  <td>160M</td>
+				  <td>31.23</td>
+				  <td>82.15</td>
+				  <td>65.92</td>
+				  <td>10.68</td>
+				  <td>11.21</td>
+				  <td>31.28</td>
+				  <td>79.53</td>
+				  <td>59.71</td>
+				  <td>11.16</td>
+				  <td>11.70</td>
+				  <td>16.57</td>
+				  <td>76.10</td>
+				</tr>
+				<tr>
+				  <td>StyleDubber</td>
+				  <td>163M</td>
+				  <td>27.36</td>
+				  <td>82.48</td>
+				  <td>66.24</td>
+				  <td>10.06</td>
+				  <td>10.52</td>
+				  <td>26.48</td>
+				  <td>79.81</td>
+				  <td>59.08</td>
+				  <td>10.56</td>
+				  <td>11.05</td>
+				  <td>19.07</td>
+				  <td>78.30</td>
+				</tr>
+				<tr>
+				  <td>Ours-MM-S16K</td>
+				  <td>493M</td>
+				  <td>7.16</td>
+				  <td>89.20</td>
+				  <td>75.27</td>
+				  <td>8.02</td>
+				  <td>8.11</td>
+				  <td>10.29</td>
+				  <td>83.83</td>
+				  <td>65.70</td>
+				  <td>9.33</td>
+				  <td>9.43</td>
+				  <td>3.17</td>
+				  <td>89.30</td>
+				</tr>
+				<tr>
+				  <td>Ours-MM-S44K</td>
+				  <td>493M</td>
+				  <td><strong>6.90</strong></td>
+				  <td><strong>89.22</strong></td>
+				  <td><strong>75.56</strong></td>
+				  <td><strong>7.98</strong></td>
+				  <td><strong>8.07</strong></td>
+				  <td>10.46</td>
+				  <td>83.83</td>
+				  <td>65.65</td>
+				  <td>9.30</td>
+				  <td><strong>9.40</strong></td>
+				  <td>3.15</td>
+				  <td>89.38</td>
+				</tr>
+				<tr>
+				  <td>Ours-MM-M44K</td>
+				  <td>957M</td>
+				  <td>7.24</td>
+				  <td>89.12</td>
+				  <td>75.37</td>
+				  <td>8.01</td>
+				  <td>8.10</td>
+				  <td><strong>10.24</strong></td>
+				  <td>83.78</td>
+				  <td><strong>65.83</strong></td>
+				  <td>9.31</td>
+				  <td>9.41</td>
+				  <td>3.15</td>
+				  <td><strong>89.39</strong></td>
+				</tr>
+				<tr>
+				  <td>Ours-MM-L44K</td>
+				  <td>1.37B</td>
+				  <td>7.18</td>
+				  <td>89.19</td>
+				  <td>75.41</td>
+				  <td><strong>7.98</strong></td>
+				  <td><strong>8.07</strong></td>
+				  <td>10.40</td>
+				  <td><strong>83.87</strong></td>
+				  <td>65.70</td>
+				  <td>9.31</td>
+				  <td>9.42</td>
+				  <td><strong>3.03</strong></td>
+				  <td>89.22</td>
+				</tr>
+				<tr>
+				  <td>Ours-YS-24K</td>
+				  <td>1.05B</td>
+				  <td>7.33</td>
+				  <td>89.14</td>
+				  <td>75.49</td>
+				  <td>8.01</td>
+				  <td>8.10</td>
+				  <td>10.58</td>
+				  <td>83.84</td>
+				  <td><strong>65.83</strong></td>
+				  <td>9.32</td>
+				  <td>9.43</td>
+				  <td>3.10</td>
+				  <td>89.21</td>
+				</tr>
+			  </tbody>
+			  <thead>
+				<tr>
+				  <th rowspan="2">V2A Task</th>
+				  <th></th>
+				  <th colspan="6">VGGSound-Test</th>
+				</tr>
+				<tr>
+				  <th>Params</th>
+				  <th>FAD↓</th>
+				  <th>FD↓</th>
+				  <th>KL↓</th>
+				  <th>IS↑</th>
+				  <th>CLIP↑</th>
+				  <th>AV↑</th>
+				</tr>
+			  </thead>
+			  <tbody>
+				<tr>
+				  <td>Diff-Foley</td>
+				  <td>859M</td>
+				  <td>6.05</td>
+				  <td>23.38</td>
+				  <td>3.18</td>
+				  <td>10.95</td>
+				  <td>9.40</td>
+				  <td>0.21</td>
+				</tr>
+				<tr>
+				  <td>FoleyCrafter w/o text</td>
+				  <td>1.22B</td>
+				  <td>2.38</td>
+				  <td>26.70</td>
+				  <td>2.53</td>
+				  <td>9.66</td>
+				  <td>15.57</td>
+				  <td><strong>0.25</strong></td>
+				</tr>
+				<tr>
+				  <td>FoleyCrafter w. text</td>
+				  <td>1.22B</td>
+				  <td>2.59</td>
+				  <td>20.88</td>
+				  <td>2.28</td>
+				  <td>13.60</td>
+				  <td>14.80</td>
+				  <td>0.24</td>
+				</tr>
+				<tr>
+				  <td>V2A-Mapper</td>
+				  <td>229M</td>
+				  <td>0.82</td>
+				  <td>13.47</td>
+				  <td>2.67</td>
+				  <td>10.53</td>
+				  <td>15.33</td>
+				  <td>0.14</td>
+				</tr>
+				<tr>
+				  <td>Frieren</td>
+				  <td>159M</td>
+				  <td>1.36</td>
+				  <td>12.48</td>
+				  <td>2.75</td>
+				  <td>12.34</td>
+				  <td>11.57</td>
+				  <td>0.21</td>
+				</tr>
+				<tr>
+				  <td>Ours-MM-S16K</td>
+				  <td>157M</td>
+				  <td>0.79</td>
+				  <td>5.22</td>
+				  <td><strong>1.65</strong></td>
+				  <td>14.44</td>
+				  <td>15.22</td>
+				  <td>0.21</td>
+				</tr>
+				<tr>
+				  <td>Ours-MM-S44K</td>
+				  <td>157M</td>
+				  <td>1.66</td>
+				  <td>5.55</td>
+				  <td>1.67</td>
+				  <td><strong>18.02</strong></td>
+				  <td>15.38</td>
+				  <td>0.21</td>
+				</tr>
+				<tr>
+				  <td>Ours-MM-M44K</td>
+				  <td>621M</td>
+				  <td>1.13</td>
+				  <td>4.74</td>
+				  <td>1.66</td>
+				  <td>17.41</td>
+				  <td>15.89</td>
+				  <td>0.22</td>
+				</tr>
+				<tr>
+				  <td>Ours-MM-L44K</td>
+				  <td>1.03B</td>
+				  <td>0.97</td>
+				  <td><strong>4.72</strong></td>
+				  <td><strong>1.65</strong></td>
+				  <td>17.40</td>
+				  <td>16.12</td>
+				  <td>0.22</td>
+				</tr>
+				<tr>
+				  <td>Ours-YS-24K</td>
+				  <td>718M</td>
+				  <td><strong>0.74</strong></td>
+				  <td>5.69</td>
+				  <td>1.69</td>
+				  <td>14.63</td>
+				  <td><strong>17.70</strong></td>
+				  <td>0.24</td>
+				</tr>
+			  </tbody>
+			  <thead>
+				<tr>
+				  <th rowspan="2">TTS Task</th>
+				  <th></th>
+				  <th colspan="2">LibriSpeech-PC test-clean</th>
+				</tr>
+				<tr>
+				  <th>Params</th>
+				  <th>SIM-O↑</th>
+				  <th>WER(%)↓</th>
+				</tr>
+			  </thead>
+			  <tbody>
+				<tr>
+				  <td>GT</td>
+				  <td></td>
+				  <td>0.665</td>
+				  <td>2.281</td>
+				</tr>
+				<tr>
+				  <td>F5-TTS</td>
+				  <td>336M</td>
+				  <td>0.648</td>
+				  <td>2.508</td>
+				</tr>
+				<tr>
+				  <td>Ours-MM-S16K</td>
+				  <td>336M</td>
+				  <td><strong>0.650</strong></td>
+				  <td>2.267</td>
+				</tr>
+				<tr>
+				  <td>Ours-MM-S44K</td>
+				  <td>336M</td>
+				  <td>0.648</td>
+				  <td>2.499</td>
+				</tr>
+				<tr>
+				  <td>Ours-MM-M44K</td>
+				  <td>336M</td>
+				  <td>0.648</td>
+				  <td>2.510</td>
+				</tr>
+				<tr>
+				  <td>Ours-MM-L44K</td>
+				  <td>336M</td>
+				  <td>0.647</td>
+				  <td><strong>2.175</strong></td>
+				</tr>
+				<tr>
+				  <td>Ours-YS-24K</td>
+				  <td>336M</td>
+				  <td>0.647</td>
+				  <td>2.521</td>
+				</tr>
+			  </tbody>
+			</table>
+			
+			<br>
+			
+			Table 1: Comparison of different methods on V2S, V2A and TTS tasks. Ours-MM-* represents the V2A module is a reproduced MMAudio series model with specific parameter size and audio sampling rate, while Our-YS-24K represents the V2A module is a reproduced YingSound model. The Params of the Ours-* model refers to the number of actually activated parameters, which depends on the specific task.
+    
+            <br><br>
+            <br><br>
+    
         </div>
-      </div>
-    </section>
 
-    <!-- Paper abstract -->
-    <section class="section hero">
-      <div class="container is-max-desktop">
-        <div class="columns is-centered has-text-centered">
-          <div class="column is-four-fifths">
-            <h2 class="title is-3">Abstract</h2>
-            <div class="content has-text-justified">
-              <p>
-                Current movie dubbing technology can generate the desired voice
-                from a given speech prompt, ensuring good synchronization
-                between speech and visuals while accurately conveying the
-                intended emotions. However, in movie dubbing, key aspects such
-                as adapting to different dubbing styles, handling dialogue,
-                narration, and monologue effectively, and understanding subtle
-                details like the age and gender of speakers, have not been well
-                studied. To address this challenge, we propose a framework of
-                multimodal large language model. First, it utilizes multimodal
-                Chain-of-Thought (CoT) reasoning methods on visual inputs to
-                understand dubbing styles and fine-grained attributes. Second,
-                it generates high-quality dubbing through large speech
-                generation models, guided by multimodal conditions.
-                Additionally, we have developed a movie dubbing dataset with CoT
-                annotations. The evaluation results demonstrate a performance
-                improvement over state-of-the-art methods across multiple
-                datasets. In particular, for the evaluation metrics, the SPK-SIM
-                and EMO-SIM increases from 82.48% to 89.74%, 66.24% to 78.88%
-                for dubbing setting 2.0 on V2C-Animation dataset, LSE-D and
-                MCD-SL decreases from 14.79 to 14.63, 5.24 to 4.74 for dubbing
-                setting 2.0 on Grid dataset, SPK-SIM increases from 64.03 to
-                83.42 and WER decreases from 52.69% to 23.20% for initial
-                reasoning setting on proposed CoT-Movie-Dubbing dataset in the
-                comparison with the state-of-the art models.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- End paper abstract -->
-
-    <!-- Image carousel -->
-    <section class="hero is-small is-light">
-      <div class="hero-body">
-        <div class="container">
-          <h2 class="title is-3">Model & Dataset Details</h2>
-          <div id="results-carousel" class="carousel results-carousel">
-            <div class="item">
-              <!-- Your image here -->
-              <img
-                src="static/images/deepdubber01.png"
-                alt="MY ALT TEXT"
-                class="center-image"
-              />
-              <h2 class="subtitle has-text-centered">
-                DeepDubber pipeline with multi-stage, multi-modal training.
-              </h2>
-            </div>
-            <div class="item">
-              <!-- Your image here -->
-              <img
-                src="static/images/dataset_cot.png"
-                alt="MY ALT TEXT"
-                class="center-image"
-              />
-              <h2 class="subtitle has-text-centered">
-                The reasoning stages of movie scene type CoT annotations.
-              </h2>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- End image carousel -->
-
-    <!-- Teaser Image-->
-    <section class="hero is-small">
-      <div class="hero-body">
-        <div class="container">
-          <h2 class="title is-3">Main Results</h2>
-          <div id="results-carousel" class="carousel results-carousel">
-            <div class="item">
-              <img
-                src="static/images/r1o1.png"
-                alt="MY ALT TEXT"
-                class="center-image"
-              />
-              <h2 class="subtitle has-text-centered">
-                Objective evaluation of the initial reasoning setting. For
-                speech generation setting, we use the target speaker's speech as
-                voice prompt if the predict scene type is correct and use random
-                speaker's speech as voice prompt if the predict scene type is
-                not correct.
-              </h2>
-            </div>
-            <div class="item">
-              <img
-                src="static/images/r2o1.png"
-                alt="MY ALT TEXT"
-                class="center-image"
-              />
-              <h2 class="subtitle has-text-centered">
-                Ablation of objective evaluation under the initial reasoning
-                setting on the proposed dataset. For the speech generation
-                setting, we use the target speaker's speech as a voice prompt if
-                the predicted scene type is correct, and a random speaker's
-                speech if the predicted scene type is incorrect. F&O Reward
-                refers to format reward and outcome reward.
-              </h2>
-            </div>
-            <div class="item">
-              <img
-                src="static/images/r3o1.png"
-                alt="MY ALT TEXT"
-                class="center-image"
-              />
-              <h2 class="subtitle has-text-centered">
-                Objective evaluation of the Reasoning Stage based on scores in
-                dialogue (A), monologue (B), and narration (C) under two
-                different levels.
-              </h2>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- End teaser Image -->
-
-    <!-- Video carousel -->
-    <!-- Your video file here -->
-    <section class="hero is-small is-light">
-      <div class="hero-body">
-        <div class="container">
-          <h2 class="title is-3">Demo Videos</h2>
-          <div id="results-carousel" class="carousel results-carousel">
-            <div class="item item-video1">
-              <video
-                poster=""
-                id="video1"
-                controls
-                muted
-                loop
-                class="center-video"
-              >
-                <source
-                  src="https://github.com/user-attachments/assets/5d78401e-efc6-4034-b66b-047aad129338"
-                  type="video/mp4"
-                />
-              </video>
-            </div>
-            <div class="item item-video2">
-              <video
-                poster=""
-                id="video2"
-                controls
-                muted
-                loop
-                class="center-video"
-              >
-                <source
-                  src="https://github.com/user-attachments/assets/58ab9155-c088-44f8-be5e-1967e01a94bc"
-                  type="video/mp4"
-                />
-              </video>
-            </div>
-            <div class="item item-video3">
-              <video
-                poster=""
-                id="video3"
-                controls
-                muted
-                loop
-                class="center-video"
-              >
-                \
-                <source
-                  src="https://github.com/user-attachments/assets/360893bd-6e06-470f-b6f2-0ef723cb8dc7"
-                  type="video/mp4"
-                />
-              </video>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- Your video file here -->
-    <!-- End video carousel -->
-
-    <!--BibTex citation -->
-    <section class="section" id="BibTeX">
-      <div class="container is-max-desktop content">
-        <h2 class="title">BibTeX</h2>
-        <pre><code>BibTex Code Here</code></pre>
-      </div>
-    </section>
-    <!--End BibTex citation -->
-
-    <footer class="footer">
-      <div class="container">
-        <div class="columns is-centered">
-          <div class="column is-8">
-            <div class="content">
-              <p>
-                This page was built using the
-                <a
-                  href="https://github.com/eliahuhorwitz/Academic-project-page-template"
-                  target="_blank"
-                  >Academic Project Page Template</a
-                >
-                which was adopted from the <a
-                  href="https://nerfies.github.io"
-                  target="_blank"
-                  >Nerfies</a
-                > project page.<br />
-                This website is licensed under a
-                <a
-                  rel="license"
-                  href="http://creativecommons.org/licenses/by-sa/4.0/"
-                  target="_blank"
-                  >Creative Commons Attribution-ShareAlike 4.0 International
-                  License</a
-                >.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
-
-    <!-- Statcounter tracking code -->
-
-    <!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
-
-    <!-- End of Statcounter Code -->
-  </body>
+</body>
 </html>
