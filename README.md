@@ -5,16 +5,49 @@ Official code for DeepSound-V1 -->
 <div align="center">
 <p align="center">
   <h2>DeepSound-V1</h2>
-  <a href="https://github.com/lym0302/DeepSound-V1">Paper</a> |  <a href="https://huggingface.co/spaces/lym0302/DeepSound-V1"> Huggingface Demo</a>
+  <a href="https://github.com/lym0302/DeepSound-V1">Paper</a> | <a href="https://hkchengrex.github.io/MMAudio">Webpage</a>| <a href="https://huggingface.co/spaces/lym0302/DeepSound-V1"> Huggingface Demo</a>| <a href="https://huggingface.co/spaces/lym0302/DeepSound-V1"> Models </a> |<a href="https://huggingface.co/datasets/lym0302/DeepSound-V1"> Dataset</a>
 </p>
 </div>
 
 ## [DeepSound-V1: Start to Think Step-by-Step in the Audio Generation from Videos](https://github.com/lym0302/DeepSound-V1)
 
+[Yunming Liang](https://scholar.google.com/citations?user=YY0qAeUAAAAJ&hl=zh-CN), 
+
 
 ## Highlight
 
 DeepSound-V1 is a framework enabling audio generation from videos towards initial step-by-step thinking without extra annotations based on the internal chain-of-thought (CoT) of Multi-modal large language model(MLLM).
+
+## Main Results
+# Video-to-audio Results on the VGGSound Test Set
+
+| Method                                 | $FD_{PaSST}\downarrow$ | $FD_{PANNs}\downarrow$ | $FD_{VGG}\downarrow$ | $KL_{PANNs}\downarrow$ | $KL_{PaSST}\downarrow$ | $IS\uparrow$ | $IB\text{-}score\uparrow$ | $DeSync\downarrow$ |
+|----------------------------------------|------------------------|------------------------|-----------------------|------------------------|------------------------|--------------|---------------------------|---------------------|
+| **MMAudio-S-44k**~\cite{cheng2024taming} |                        |                        |                       |                        |                        |              |                           |                     |
+| Direct \& Ori-Set                      | 65.25                  | 5.55                   | 1.66                  | 1.67                   | 1.44                   | 18.02        | 32.27                     | 0.444               |
+| Direct \& VO-Free                      | 65.47                  | 5.77                   | 1.03                  | 2.22                   | 1.82                   | 13.32        | 31.16                     | 0.487               |
+| Direct-neg \& Ori-Set                  | 68.44                  | 6.48                   | 1.71                  | 2.27                   | 1.84                   | 13.74        | 30.51                     | 0.505               |
+| Our best \& VO-Free                    | **65.07**(0.27%)       | 6.08                   | **1.02**(38.61%)      | 2.20                   | 1.82                   | 13.39        | 30.82                     | 0.496               |
+| **MMAudio-M-44k**~\cite{cheng2024taming} |                        |                        |                       |                        |                        |              |                           |                     |
+| Direct \& Ori-Set                      | 61.88                  | 4.74                   | 1.13                  | 1.66                   | 1.41                   | 17.41        | 32.99                     | 0.443               |
+| Direct \& VO-Free                      | 56.07                  | 4.57                   | 0.99                  | 2.15                   | 1.74                   | 13.91        | 32.19                     | 0.479               |
+| Direct-neg \& Ori-Set                  | 60.21                  | 4.79                   | 1.66                  | 2.20                   | 1.76                   | 14.68        | 32.13                     | 0.486               |
+| Our best \& VO-Free                    | **55.65**(10.07%)      | 4.80                   | **0.93**(17.70%)      | 2.15                   | 1.77                   | 13.82        | 31.44                     | 0.495               |
+| **MMAudio-L-44k**~\cite{cheng2024taming} |                        |                        |                       |                        |                        |              |                           |                     |
+| Direct \& Ori-Set                      | 60.60                  | 4.72                   | 0.97                  | 1.65                   | 1.40                   | 17.40        | 33.22                     | 0.442               |
+| Direct \& VO-Free                      | 56.29                  | 4.29                   | 1.03                  | 2.13                   | 1.72                   | 14.54        | 32.74                     | 0.475               |
+| Direct-neg \& Ori-Set                  | 59.50                  | 4.62                   | 1.75                  | 2.19                   | 1.76                   | 15.42        | 32.36                     | 0.490               |
+| Our best \& VO-Free                    | **55.19**(8.93%)       | **4.42**(6.36%)        | **0.95**(2.06%)       | 2.13                   | 1.75                   | 14.49        | 31.94                     | 0.490               |
+| **YingSound**~\cite{chen2024yingsound}  |                        |                        |                       |                        |                        |              |                           |                     |
+| Direct \& Ori-Set                      | 69.37                  | 6.28                   | 0.78                  | 1.70                   | 1.41                   | 14.02        | 27.75                     | 0.956               |
+| Direct \& VO-Free                      | 68.78                  | 5.33                   | 0.70                  | 1.74                   | 1.45                   | 14.63        | 27.75                     | 0.956               |
+| Direct-neg \& Ori-Set                  | 77.86                  | 7.37                   | 0.75                  | 2.20                   | 1.83                   | 12.48        | 27.15                     | 0.991               |
+| Our best \& VO-Free                    | **68.95**(0.60%)       | **5.57**(11.32%)       | **0.72**(8.32%)       | 1.73                   | 1.45                   | **14.71**(4.95%) | 27.56                     | 0.962               |
+| **FoleyCrafter**~\cite{zhang2024foleycrafterbringsilentvideos} |                        |                        |                       |                        |                        |              |                           |                     |
+| Direct \& Ori-Set                      | 140.09                 | 19.67                  | 2.51                  | 2.30                   | 2.23                   | 15.58        | 25.68                     | 1.225               |
+| Direct \& VO-Free                      | 130.67                 | 17.59                  | 2.12                  | 2.59                   | 2.28                   | 9.94         | 27.96                     | 1.215               |
+| Direct-neg \& Ori-Set                  | 181.45                 | 21.17                  | 3.17                  | 2.73                   | 2.43                   | 10.48        | 27.34                     | 1.223               |
+| Our best \& VO-Free                    | **127.97**(8.65%)      | **17.39**(11.62%)      | **2.12**(15.42%)      | 2.57                   | 2.29                   | 9.96         | **27.43**(6.39%)          | **1.214**(0.89%)    |
 
 
 ## Demo
