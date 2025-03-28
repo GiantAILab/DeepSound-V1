@@ -85,20 +85,20 @@ https://github.com/user-attachments/assets/96e65ec8-1631-4293-8c7f-244fc585e3aa 
   <td><p style="text-align: center">Direct Result</p></td>
   <td><p style="text-align: center">Step-by-step Result</p></td>
 </tr> -->
-<table class='center' style="width: 100%; text-align: center;">
+<table class='center' style="width: 100%; text-align: center; table-layout: fixed;">
   <tr>
-    <td style="width: 50%;"><p>Direct Result</p></td>
-    <td style="width: 50%;"><p>Step-by-step Result</p></td>
+    <td style="width: 50%; padding: 10px;"><p>Direct Result</p></td>
+    <td style="width: 50%; padding: 10px;"><p>Step-by-step Result</p></td>
   </tr>
-<tr>
+  <tr>
 
-<td>
+<td style="width: 50%; padding: 10px;">
 
 https://github.com/user-attachments/assets/a0e1ff4d-3bf8-47a3-9b35-a28c5654610d
 
 </td>
 
-<td>
+<td style="width: 50%; padding: 10px;">
 
 https://github.com/user-attachments/assets/96e65ec8-1631-4293-8c7f-244fc585e3aa
 
