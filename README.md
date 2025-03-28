@@ -80,11 +80,16 @@ Step-by-step result:
 https://github.com/user-attachments/assets/96e65ec8-1631-4293-8c7f-244fc585e3aa -->
 
 
-<table class='center'>
+<!-- <table class='center'>
 <tr>
   <td><p style="text-align: center">Direct Result</p></td>
   <td><p style="text-align: center">Step-by-step Result</p></td>
-</tr>
+</tr> -->
+<table class='center' style="width: 100%; text-align: center;">
+  <tr>
+    <td style="width: 50%;"><p>Direct Result</p></td>
+    <td style="width: 50%;"><p>Step-by-step Result</p></td>
+  </tr>
 <tr>
 
 <td>
