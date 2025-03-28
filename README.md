@@ -88,6 +88,22 @@ Direct result:
   </video>
 </div>
 
+<table>
+  <tr>
+    <td>
+      <video width="300" controls>
+        <source src="https://github.com/user-attachments/assets/96e65ec8-1631-4293-8c7f-244fc585e3aa" type="video/mp4">
+      </video>
+    </td>
+    <td>
+      <video width="300" controls>
+        <source src="https://github.com/user-attachments/assets/96e65ec8-1631-4293-8c7f-244fc585e3aa" type="video/mp4">
+      </video>
+    </td>
+  </tr>
+</table>
+
+
 
 Step-by-step result:
 
