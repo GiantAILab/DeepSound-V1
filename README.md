@@ -47,6 +47,24 @@ compared to previous methods, while the green text in brackets represents the im
 || Our best \& VO-Free| **127.97**(8.65%)| **17.39**(11.62%)| **2.12**(15.42%)| 2.57  | 2.29  | 9.96| **27.43**(6.39%) | **1.214**(0.89%) |
 
 
+
+Ablation result on MMAudio-L-44k. The improvement between baseline and ours is represented as green color, demonstrating
+effectiveness of the learned CoT reasoning in enhancing the final audio quality, the improvement between Ours-s3 and Ours-s4 is represented as blue color.
+
+|  | **Distribution matching** | Audio quality | Semantic align | Temporal align |
+|:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+|  | FD<sub>PaSST</sub>↓ | FD<sub>PANNs</sub>↓ | FD<sub>VGG</sub>↓ | KL<sub>PANNs</sub>↓ | KL<sub>PaSST</sub>↓ | IS↑ | IB-score↑ | DeSync↓ |
+| **setting1 & vggtest-gt1** | 60.60 | 4.72 | 0.97 | 1.65 | 1.40 | 17.40 | 33.22 | 0.442 |
+| **setting1 & vggtest-gt2** | 56.29 | 4.29 | 1.03 | 2.13 | 1.72 | 14.54 | 32.74 | 0.475 |
+| **setting1-neg & vggtest-gt1** | 59.50 | 4.62 | 1.75 | 2.19 | 1.76 | 15.42 | 32.36 | 0.490 |
+| **setting2-cot & vggtest-gt2** | 55.19 | 4.42 | 0.95 | 2.13 | 1.75 | 14.49 | 31.94 | 0.490 |
+| **setting3-rm & vggtest-gt2** | 55.75 | 4.49 | 1.00 | 2.12 | 1.73 | 14.70 | 32.25 | 0.484 |
+| **setting3-rep & vggtest-gt2** | 55.66 | 4.45 | 0.97 | 2.14 | 1.74 | 14.61 | 32.16 | 0.486 |
+| **setting3-neg & vggtest-gt2** | 55.66 | 4.44 | 0.99 | 2.13 | 1.74 | 14.65 | 32.17 | 0.487 |
+
+
+
+
 ## Demo
 Overall process:
 
