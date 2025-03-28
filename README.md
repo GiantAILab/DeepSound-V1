@@ -79,6 +79,16 @@ Direct result:
 
 [Video 1](https://github.com/user-attachments/assets/a0e1ff4d-3bf8-47a3-9b35-a28c5654610d) | [Video 2](https://github.com/user-attachments/assets/96e65ec8-1631-4293-8c7f-244fc585e3aa)
 
+<div style="display: flex; gap: 20px;">
+  <video width="45%" controls>
+    <source src="https://github.com/user-attachments/assets/a0e1ff4d-3bf8-47a3-9b35-a28c5654610d" type="video/mp4">
+  </video>
+  <video width="45%" controls>
+    <source src="https://github.com/user-attachments/assets/96e65ec8-1631-4293-8c7f-244fc585e3aa" type="video/mp4">
+  </video>
+</div>
+
+
 Step-by-step result:
 
 https://github.com/user-attachments/assets/96e65ec8-1631-4293-8c7f-244fc585e3aa
