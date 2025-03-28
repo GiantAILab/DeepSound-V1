@@ -1,0 +1,46 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.yapf]
+based_on_style = "pep8"
+indent_width = 4
+column_limit = 100
+
+[project]
+name = "av_bench"
+version = "1.0.0"
+authors = [{ name = "Rex Cheng", email = "hkchengrex@gmail.com" }]
+description = ""
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Operating System :: OS Independent",
+]
+dependencies = [
+  'torch >= 2.5.1',
+  'torchaudio', 
+  'torchvision',
+  'cython',
+  'numpy >= 1.21',
+  'opencv-python >= 4.8',
+  'scipy >= 1.7',
+  'tqdm >= 4.66.1',
+  'librosa',
+  'torchlibrosa',
+  'resampy',
+  'colorlog',
+  'omegaconf',
+  'laion-clap @ git+https://github.com/hkchengrex/CLAP.git',
+  'passt @ git+https://github.com/hkchengrex/passt_hear21.git',
+  'imagebind @ git+https://github.com/hkchengrex/ImageBind.git',
+  'msclap @ git+https://github.com/hkchengrex/MS-CLAP.git',
+  'pandas',
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["av_bench"]
