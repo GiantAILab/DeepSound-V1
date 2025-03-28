@@ -305,8 +305,8 @@ See [EVAL.md](docs/EVAL.md).
 ## Acknowledgement
 
 Many thanks to:
-- [VideoLLaMA2](https://github.com/DAMO-NLP-SG/VideoLLaMA2) 
-- [MMAudio](https://github.com/hkchengrex/MMAudio) 
-- [FoleyCrafter](https://github.com/open-mmlab/FoleyCrafter)
-- [BS-RoFormer](https://github.com/ZFTurbo/Music-Source-Separation-Training)
-- [av-benchmark](https://github.com/hkchengrex/av-benchmark)
+- [VideoLLaMA2](https://github.com/DAMO-NLP-SG/VideoLLaMA2) for MLLM CoT reasoning
+- [MMAudio](https://github.com/hkchengrex/MMAudio) for generate audio from video
+- [FoleyCrafter](https://github.com/open-mmlab/FoleyCrafter) for generate audio from video
+- [BS-RoFormer](https://github.com/ZFTurbo/Music-Source-Separation-Training) for remove voice-over
+- [av-benchmark](https://github.com/hkchengrex/av-benchmark) for benchmarking results
