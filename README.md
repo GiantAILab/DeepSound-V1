@@ -72,42 +72,68 @@ https://github.com/user-attachments/assets/40767fd0-0d77-4286-9644-b5d66412652e
 
 Direct result:
 
-<div style="display: flex; justify-content: space-between;">
-  <iframe width="45%" height="315" src="https://github.com/user-attachments/assets/a0e1ff4d-3bf8-47a3-9b35-a28c5654610d" frameborder="0" allowfullscreen></iframe>
-  <iframe width="45%" height="315" src="https://github.com/user-attachments/assets/96e65ec8-1631-4293-8c7f-244fc585e3aa" frameborder="0" allowfullscreen></iframe>
-</div>
-
-[Video 1](https://github.com/user-attachments/assets/a0e1ff4d-3bf8-47a3-9b35-a28c5654610d) | [Video 2](https://github.com/user-attachments/assets/96e65ec8-1631-4293-8c7f-244fc585e3aa)
-
-<div style="display: flex; gap: 20px;">
-  <video width="45%" controls>
-    <source src="https://github.com/user-attachments/assets/a0e1ff4d-3bf8-47a3-9b35-a28c5654610d" type="video/mp4">
-  </video>
-  <video width="45%" controls>
-    <source src="https://github.com/user-attachments/assets/96e65ec8-1631-4293-8c7f-244fc585e3aa" type="video/mp4">
-  </video>
-</div>
-
-<table>
-  <tr>
-    <td>
-      <video width="300" controls>
-        <source src="https://github.com/user-attachments/assets/96e65ec8-1631-4293-8c7f-244fc585e3aa" type="video/mp4">
-      </video>
-    </td>
-    <td>
-      <video width="300" controls>
-        <source src="https://github.com/user-attachments/assets/96e65ec8-1631-4293-8c7f-244fc585e3aa" type="video/mp4">
-      </video>
-    </td>
-  </tr>
-</table>
-
+https://github.com/user-attachments/assets/a0e1ff4d-3bf8-47a3-9b35-a28c5654610d
 
 
 Step-by-step result:
 
 https://github.com/user-attachments/assets/96e65ec8-1631-4293-8c7f-244fc585e3aa
+
+
+<table class='center'>
+<tr>
+  <td><p style="text-align: center">Direct Result</p></td>
+  <td><p style="text-align: center">Step-by-step Result</p></td>
+<tr>
+<tr>
+  <td>
+
+https://github.com/user-attachments/assets/a0e1ff4d-3bf8-47a3-9b35-a28c5654610d
+ </td>
+  <td>
+
+https://github.com/user-attachments/assets/96e65ec8-1631-4293-8c7f-244fc585e3aa
+
+</td>
+<tr>
+<tr>
+  <td>
+
+https://github-production-user-asset-6210df.s3.amazonaws.com/134203169/342309166-16206bb8-9c5e-4e9d-9d73-bc251e5658fd.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240624%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240624T122143Z&X-Amz-Expires=300&X-Amz-Signature=43c3e2c687846eb3ba118237628b747a78c403ea4f21739fe2d423724f7b426c&X-Amz-SignedHeaders=host&actor_id=134203169&key_id=0&repo_id=812946188
+
+</td>
+  <td>
+
+https://github-production-user-asset-6210df.s3.amazonaws.com/134203169/342309768-90c42af6-0d24-4a05-98d4-64e23467c4bb.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240624%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240624T122213Z&X-Amz-Expires=300&X-Amz-Signature=cfed43cd2710bf73b84b6c3ebe8debd1e0b098bdc24a1a14f6531499d01c278e&X-Amz-SignedHeaders=host&actor_id=134203169&key_id=0&repo_id=812946188
+
+</td>
+<tr>
+<tr>
+  <td>
+
+https://github-production-user-asset-6210df.s3.amazonaws.com/134203169/342309601-e711b7c5-1614-4d39-8b1e-c54e28eec809.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240624%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240624T122221Z&X-Amz-Expires=300&X-Amz-Signature=4c4680eb6c541433e4505fb2b5f5a5cc8d3e5708d9f2675a98cbb556cd5d59f5&X-Amz-SignedHeaders=host&actor_id=134203169&key_id=0&repo_id=812946188
+
+</td>
+  <td>
+
+https://github-production-user-asset-6210df.s3.amazonaws.com/134203169/342309802-2db7f130-0c25-45c2-ad4d-bf86c5468b1f.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240624%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240624T122243Z&X-Amz-Expires=300&X-Amz-Signature=2c32069318f60f03ee9a3185a7e2833c534ea601a02a5ff025b46c2abbc5b120&X-Amz-SignedHeaders=host&actor_id=134203169&key_id=0&repo_id=812946188
+
+</td>
+<tr>
+<tr>
+  <td>
+
+https://github-production-user-asset-6210df.s3.amazonaws.com/134203169/342309637-6c2f106d-6b98-41ac-80ba-734636321f8c.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240624%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240624T122305Z&X-Amz-Expires=300&X-Amz-Signature=04adb2cd80785a245ce704837ba9932d3646d375c51c53e7b70e6861ec7f6b4a&X-Amz-SignedHeaders=host&actor_id=134203169&key_id=0&repo_id=812946188
+
+</td>
+  <td>
+
+https://github-production-user-asset-6210df.s3.amazonaws.com/134203169/342309836-77391524-9b31-4602-ad42-0876e0c16794.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240624%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240624T122317Z&X-Amz-Expires=300&X-Amz-Signature=3020c12591592a106efcb1aaa22237093737afaa55ede3880d3cbf9cd80b7482&X-Amz-SignedHeaders=host&actor_id=134203169&key_id=0&repo_id=812946188
+
+</td>
+<tr>
+</table>
+
 
 
 ## Installation
