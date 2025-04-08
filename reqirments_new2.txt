@@ -65,10 +65,10 @@ hyper_connections==0.1.11
 omegaconf==2.2.3
 beartype==0.14.1
 pydantic>=2.0
-protobuf==3.20.3
+protobuf
 fastapi
 uvicorn
-httpx==0.24.1
+httpx
 requests
 openai
 gradio==3.50.0
