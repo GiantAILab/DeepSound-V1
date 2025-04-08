@@ -190,10 +190,10 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
         tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=True, token=token)
         model = AutoModelForCausalLM.from_pretrained(model_path, config=config, **kwargs)
 
-    from accelerate import infer_auto_device_map, disk_offload
-    device_map = infer_auto_device_map(model, max_memory={"cuda:0": "12GiB", "cpu": "12GiB"})
-    offload_path = os.path.abspath("./offload_folder")
-    disk_offload(model, folder=offload_path, device_map=device_map)
+    #from accelerate import infer_auto_device_map, disk_offload
+    #device_map = infer_auto_device_map(model, max_memory={"cuda:0": "12GiB", "cpu": "12GiB"})
+    #offload_path = os.path.abspath("./offload_folder")
+    #disk_offload(model, folder=offload_path, device_map=device_map)
 
     processor = None
 
