@@ -5,7 +5,7 @@ Official code for DeepSound-V1 -->
 <div align="center">
 <p align="center">
   <h2>DeepSound-V1</h2>
-  <a href="https://github.com/lym0302/DeepSound-V1">Paper</a> | <a href="https://hkchengrex.github.io/MMAudio">Webpage</a>| <a href="https://huggingface.co/spaces/lym0302/DeepSound-V1"> Huggingface Demo</a>| <a href="https://huggingface.co/spaces/lym0302/DeepSound-V1"> Models </a> |<a href="https://huggingface.co/datasets/lym0302/DeepSound-V1"> Dataset</a>
+  <a href="https://arxiv.org/abs/2503.22208">Paper</a> | <a href="https://hkchengrex.github.io/MMAudio">Webpage</a>| <a href="https://huggingface.co/spaces/lym0302/DeepSound-V1"> Huggingface Demo</a>| <a href="https://huggingface.co/spaces/lym0302/DeepSound-V1"> Models </a> |<a href="https://huggingface.co/datasets/lym0302/DeepSound-V1"> Dataset</a> | <a href="https://colab.research.google.com/drive/1azbbZVKs6o2usbG-LJJEmFseNmwy9g_c">Colab Demo</a> | <a href="https://github.com/lym0302/DeepSound-V1">Replicate Demo</a>
 </p>
 </div>
 
