@@ -26,18 +26,21 @@ MODEL_PATHS = {"bs_roformer": [f"{model_base_dir}/model_bs_roformer_ep_317_sdr_1
 
 
 class Step3:
-    def __init__(self, model_type="bs_roformer"):
+    def __init__(self, model_type="bs_roformer", device=None):
         model_path, config_path = MODEL_PATHS[model_type]
         
         self.log = logging.getLogger(self.__class__.__name__)
         self.log.setLevel(logging.INFO)
-        self.device = 'cpu'
-        if torch.cuda.is_available():
-            self.device = 'cuda'
-        elif torch.backends.mps.is_available():
-            self.device = 'mps'
+        if device is not None:
+            self.device=device
         else:
-            self.log.warning('CUDA/MPS are not available, running on CPU')
+            self.device = 'cpu'
+            if torch.cuda.is_available():
+                self.device = 'cuda'
+            elif torch.backends.mps.is_available():
+                self.device = 'mps'
+            else:
+                self.log.warning('CUDA/MPS are not available, running on CPU')
         
         self.model_type = model_type
 

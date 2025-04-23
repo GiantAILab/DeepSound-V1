@@ -12,7 +12,7 @@ import os
 import time
 
 class Pipeline:
-    def __init__(self, step0_model_dir, step1_mode, step2_model_dir, step2_mode, step3_mode):
+    def __init__(self, step0_model_dir, step1_mode, step2_model_dir, step2_mode, step3_mode, step3_device=None):
         self.step02 = None
         if step0_model_dir == step2_model_dir and step2_mode == 'cot':
             self.step02 = Step02(step0_model_dir, step2_mode)
@@ -21,10 +21,12 @@ class Pipeline:
             self.step2 = Step2(step2_model_dir, step2_mode)
 
         self.step1 = Step1(step1_mode)
-        self.step3 = Step3(model_type=step3_mode)
         self.step4 = Step4()
         self.log = logging.getLogger(self.__class__.__name__)
         self.log.setLevel(logging.INFO)
+        
+        self.step3 = Step3(model_type=step3_mode, device=step3_device)
+
         
 
     def run(self, video_input, output_dir, mode='s4', postp_mode='rep', prompt='', negative_prompt='', duration=10, seed=42):
