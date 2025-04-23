@@ -19,13 +19,16 @@ class Pipeline:
         else:
             self.step0 = Step0(step0_model_dir)
             self.step2 = Step2(step2_model_dir, step2_mode)
+        print("000000000000000000000222222222222222222")
 
         self.step1 = Step1(step1_mode, device=device)
+        print("1111111111111111111111111111111111111")
         self.step4 = Step4()
         self.log = logging.getLogger(self.__class__.__name__)
         self.log.setLevel(logging.INFO)
         
         self.step3 = Step3(model_type=step3_mode, device=device)
+        print("333333333333333333333333333333333333333333333333")
 
         
 
