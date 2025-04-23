@@ -32,18 +32,22 @@ model_base_dir = "pretrained/v2a/foleycrafter"
 class V2A_FoleyCrafter:
     def __init__(self, 
                 pretrained_model_name_or_path: str=f"{model_base_dir}/checkpoints/auffusion",
-                ckpt: str=f"{model_base_dir}/checkpoints",):
+                ckpt: str=f"{model_base_dir}/checkpoints",
+                device=None):
         self.log = logging.getLogger(self.__class__.__name__)
         self.log.setLevel(logging.INFO)
         self.log.info(f"The V2A model uses FoleyCrafter, init...")
-
-        self.device = 'cpu'
-        if torch.cuda.is_available():
-            self.device = 'cuda'
-        elif torch.backends.mps.is_available():
-            self.device = 'mps'
+        
+        if device is not None:
+            self.device = device
         else:
-            self.log.warning('CUDA/MPS are not available, running on CPU')
+            self.device = 'cpu'
+            if torch.cuda.is_available():
+                self.device = 'cuda'
+            elif torch.backends.mps.is_available():
+                self.device = 'mps'
+            else:
+                self.log.warning('CUDA/MPS are not available, running on CPU')
         
         # download ckpt
         if not os.path.isdir(pretrained_model_name_or_path):

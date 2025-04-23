@@ -52,7 +52,7 @@ def init_pipeline(step0_model_dir=repo_local_path,
         step2_model_dir=step2_model_dir,
         step2_mode=step2_mode,
         step3_mode=step3_mode,
-        step3_device='cpu',  # 设置 step3 是 cpu，减少 gpu 占用
+        device='cpu',  # 设置 step1 和 step3 是 cpu，减少 gpu 占用
     )
 
     return pipeline

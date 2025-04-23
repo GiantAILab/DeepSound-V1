@@ -10,17 +10,17 @@ def show(text):
 
 
 class Step1:
-    def __init__(self, step1_mode):
+    def __init__(self, step1_mode, device=None):
         self.log = logging.getLogger(self.__class__.__name__)
         self.log.setLevel(logging.INFO)
 
         if step1_mode.startswith('mmaudio'):
             from v2a_models.v2a_mmaudio import V2A_MMAudio
             variant = step1_mode.replace("mmaudio_", "")
-            self.v2a_model = V2A_MMAudio(variant)
+            self.v2a_model = V2A_MMAudio(variant, device=device)
         elif step1_mode == "foleycrafter":
             from v2a_models.v2a_foleycrafter import V2A_FoleyCrafter
-            self.v2a_model = V2A_FoleyCrafter()
+            self.v2a_model = V2A_FoleyCrafter(device=device)
         else:
             self.log.error(f"Error step1_mode: {step1_mode}")
 
