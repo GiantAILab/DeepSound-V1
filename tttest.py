@@ -85,9 +85,9 @@ def main():
     step_results = video_to_audio(pipeline, video_input, output_dir)
     print("\nGenerating audio from video is complete.")
 
-    # print("step_results: ", step_results)
-    # print(f"final_audio_path: {step_results['final_audio_path']}")
-    # print(f"final_video_path: {step_results['final_video_path']}")
+    print("step_results: ", step_results)
+    print(f"final_audio_path: {step_results['final_audio_path']}")
+    print(f"final_video_path: {step_results['final_video_path']}")
 
 
 if __name__ == '__main__':
