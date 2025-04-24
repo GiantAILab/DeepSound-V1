@@ -53,7 +53,7 @@ def init_pipeline(step0_model_dir=repo_local_path,
         step2_mode=step2_mode,
         step3_mode=step3_mode,
         device='cpu',  # 设置 step1 和 step3 是 cpu，减少 gpu 占用
-        load_8bit='True',  # 加载videollama2 cot 
+        # load_8bit='True',  # 加载videollama2 cot 
     )
 
     return pipeline
