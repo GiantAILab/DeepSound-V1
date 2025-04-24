@@ -12,10 +12,11 @@ import os
 import time
 
 class Pipeline:
-    def __init__(self, step0_model_dir, step1_mode, step2_model_dir, step2_mode, step3_mode, device=None):
+    def __init__(self, step0_model_dir, step1_mode, step2_model_dir, step2_mode, step3_mode, 
+                 device=None, load_8bit=False, load_4bit=False):
         self.step02 = None
         if step0_model_dir == step2_model_dir and step2_mode == 'cot':
-            self.step02 = Step02(step0_model_dir, step2_mode)
+            self.step02 = Step02(step0_model_dir, step2_mode, load_8bit, load_4bit)
         else:
             self.step0 = Step0(step0_model_dir)
             self.step2 = Step2(step2_model_dir, step2_mode)

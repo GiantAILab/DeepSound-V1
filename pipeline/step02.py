@@ -5,11 +5,11 @@ import time
 
     
 class Step02:
-    def __init__(self, model_path, step2_mode):
+    def __init__(self, model_path, step2_mode, load_8bit=False, load_4bit=False):
         self.modal = "video"
         self.log = logging.getLogger(self.__class__.__name__)
         self.log.setLevel(logging.INFO)
-        self.model, self.processor, self.tokenizer = model_init(model_path)
+        self.model, self.processor, self.tokenizer = model_init(model_path, load_8bit, load_4bit)
         self.preprocess = self.processor[self.modal]
         self.step2_mode = step2_mode
 

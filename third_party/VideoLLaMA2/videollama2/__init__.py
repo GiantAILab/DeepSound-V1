@@ -12,10 +12,10 @@ from .constants import NUM_FRAMES, DEFAULT_IMAGE_TOKEN, DEFAULT_VIDEO_TOKEN, MOD
 
 DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
 
-def model_init(model_path=None, **kwargs):
+def model_init(model_path=None, load_8bit=False, load_4bit=False, **kwargs):
     model_path = "DAMO-NLP-SG/VideoLLaMA2-7B" if model_path is None else model_path
     model_name = get_model_name_from_path(model_path)
-    tokenizer, model, processor, context_len = load_pretrained_model(model_path, None, model_name, device=DEVICE, **kwargs)
+    tokenizer, model, processor, context_len = load_pretrained_model(model_path, None, model_name, device=DEVICE, load_8bit=load_8bit, load_4bit=load_4bit, **kwargs)
 
     if tokenizer.pad_token is None and tokenizer.unk_token is not None:
         tokenizer.pad_token = tokenizer.unk_token
