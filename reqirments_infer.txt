@@ -2,7 +2,7 @@ python-dotenv
 cython
 gitpython >= 3.1
 tensorboard >= 2.11
-numpy==1.26.4
+#numpy==1.26.4
 Pillow >= 9.5
 opencv-python >= 4.8
 scipy >= 1.7
@@ -74,3 +74,4 @@ wandb
 keyboard
 ml_collections
 pytorchvideo
+numpy
