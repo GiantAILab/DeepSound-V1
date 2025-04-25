@@ -5,7 +5,7 @@ Official code for DeepSound-V1 -->
 <div align="center">
 <p align="center">
   <h2>DeepSound-V1</h2>
-  <a href="https://arxiv.org/abs/2503.22208">Paper</a> | <a href="https://hkchengrex.github.io/MMAudio">Webpage</a>| <a href="https://huggingface.co/spaces/lym0302/DeepSound-V1"> Huggingface Demo</a>| <a href="https://huggingface.co/spaces/lym0302/DeepSound-V1"> Models </a> |<a href="https://huggingface.co/datasets/lym0302/DeepSound-V1"> Dataset</a> | <a href="https://colab.research.google.com/drive/1azbbZVKs6o2usbG-LJJEmFseNmwy9g_c">Colab Demo</a> | <a href="https://github.com/lym0302/DeepSound-V1">Replicate Demo</a>
+  <a href="https://arxiv.org/abs/2503.22208">Paper</a> | <a href="https://hkchengrex.github.io/MMAudio">Webpage</a>| <a href="https://huggingface.co/spaces/lym0302/DeepSound-V1"> Huggingface Demo</a>| <a href="https://huggingface.co/spaces/lym0302/DeepSound-V1"> Models </a> |<a href="https://huggingface.co/datasets/lym0302/DeepSound-V1"> Dataset</a> | <a href="https://colab.research.google.com/drive/1FcsW9lyu3B0SpmZXj3FYtmhqesXdPU9G?usp=sharing">Colab Demo</a> | <a href="https://github.com/lym0302/DeepSound-V1">Replicate Demo</a>
 </p>
 </div>
 
@@ -152,11 +152,10 @@ https://github.com/user-attachments/assets/b3b95546-82ea-4fb3-88cd-26c2e00f8356
 
 ## Installation
 ```bash
-conda create -n deepsound-v1 python=3.10.16 -y
+conda create -n deepsound-v1 python=3.10 -y
 conda activate deepsound-v1
-pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu120
+pip install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 
 pip install flash-attn==2.5.8 --no-build-isolation
-pip install -e .
 pip install -r reqirments.txt
 ```
 
@@ -291,14 +290,17 @@ See [EVAL.md](docs/EVAL.md).
 
 ## Citation
 
-<!-- ```bibtex
-@inproceedings{cheng2025taming,
-  title={Taming Multimodal Joint Training for High-Quality Video-to-Audio Synthesis},
-  author={Cheng, Ho Kei and Ishii, Masato and Hayakawa, Akio and Shibuya, Takashi and Schwing, Alexander and Mitsufuji, Yuki},
-  booktitle={CVPR},
-  year={2025}
+```bibtex
+@misc{liang2025deepsoundv1startthinkstepbystep,
+      title={DeepSound-V1: Start to Think Step-by-Step in the Audio Generation from Videos}, 
+      author={Yunming Liang and Zihao Chen and Chaofan Ding and Xinhan Di},
+      year={2025},
+      eprint={2503.22208},
+      archivePrefix={arXiv},
+      primaryClass={cs.SD},
+      url={https://arxiv.org/abs/2503.22208}, 
 }
-``` -->
+```
 
 
 
