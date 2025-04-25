@@ -67,7 +67,6 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
         kwargs['quantization_config'] = BitsAndBytesConfig(
             load_in84bit=True,)
     elif load_4bit:
-        print("4444444444444444444444444444444444444")
         # NOTE: High-version Transformers will report: """ValueError: You can't pass `load_in_4bit`or `load_in_8bit` as a kwarg when passing `quantization_config` argument at the same time."""
         # kwargs['load_in_4bit'] = True
         kwargs['quantization_config'] = BitsAndBytesConfig(
@@ -76,7 +75,6 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
             bnb_4bit_use_double_quant=True,
             bnb_4bit_quant_type='nf4'
         )
-        print("aaaaaaaaaaaaaaaaaaaaaaaaaa")
     else:
         kwargs['torch_dtype'] = torch.float16
 
@@ -183,18 +181,7 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
         elif model_type in ['videollama2_mixtral']:
             model = Videollama2MixtralForCausalLM.from_pretrained(model_path, low_cpu_mem_usage=True, config=config, **kwargs)
         elif model_type in ['videollama2_qwen2']:
-            print("config: ", config)
-            print("kwargs: ", kwargs)
             model = Videollama2Qwen2ForCausalLM.from_pretrained(model_path, low_cpu_mem_usage=True, config=config, **kwargs)
-            print("222222222222222222222222222222222222222222222")
-            # torch.save(model.state_dict(), "model_int4.pt")
-            # torch.save(model, "model_int4_full.pt")
-            # from transformers.utils import logging
-            # logging.set_verbosity_error()
-            # model.save_pretrained("pretrained/mllm/VideoLLaMA2.1-7B-AV-CoT-int4", safe_serialization=False)
-            # print("33333333333333333333333333333333")
-            # tokenizer.save_pretrained("pretrained/mllm/VideoLLaMA2.1-7B-AV-CoT-int4", safe_serialization=False)
-            # print("4444444444444444444444444444444444")
         elif model_type in ['videollama2_gemma2']:
             model = Videollama2Gemma2ForCausalLM.from_pretrained(model_path, low_cpu_mem_usage=True, config=config, **kwargs)
         elif model_type in ['videollama2_phi3']:
@@ -204,11 +191,6 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
     else:
         tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=True, token=token)
         model = AutoModelForCausalLM.from_pretrained(model_path, config=config, **kwargs)
-
-    #from accelerate import infer_auto_device_map, disk_offload
-    #device_map = infer_auto_device_map(model, max_memory={"cuda:0": "12GiB", "cpu": "12GiB"})
-    #offload_path = os.path.abspath("./offload_folder")
-    #disk_offload(model, folder=offload_path, device_map=device_map)
 
     processor = None
 
@@ -226,8 +208,6 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
         context_len = 2048
 
     return tokenizer, model, processor, context_len
-
-
 
 
 

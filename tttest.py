@@ -15,30 +15,42 @@ import subprocess
 import time
 import requests
 
+dowmload_model = True
 
-# download model
-from huggingface_hub import snapshot_download
-repo_local_path = snapshot_download(repo_id="lym0302/VideoLLaMA2.1-7B-AV-CoT")
+if dowmload_model:
+    # download model
+    from huggingface_hub import snapshot_download
+    repo_local_path = snapshot_download(repo_id="lym0302/VideoLLaMA2.1-7B-AV-CoT")
 
-remove_vo_model_dir = "pretrained/remove_vo/checkpoints"
-os.makedirs(remove_vo_model_dir, exist_ok=True)
-urls = ["https://github.com/TRvlvr/model_repo/releases/download/all_public_uvr_models/model_bs_roformer_ep_317_sdr_12.9755.ckpt",
-        "https://raw.githubusercontent.com/ZFTurbo/Music-Source-Separation-Training/main/configs/viperx/model_bs_roformer_ep_317_sdr_12.9755.yaml"]
-for url in urls:
-    file_name = url.split("/")[-1]  # Extract file name from URL
-    file_path = os.path.join(remove_vo_model_dir, file_name)
-    response = requests.get(url, stream=True)
-    if response.status_code == 200:
-        with open(file_path, "wb") as f:
-            for chunk in response.iter_content(chunk_size=8192):  # Use a chunk size of 8 KB
-                f.write(chunk)
-        print(f"File downloaded successfully and saved to {file_path}")
-    else:
-        print(f"Failed to download the file. Status code: {response.status_code}")
+    remove_vo_model_dir = "pretrained/remove_vo/checkpoints"
+    os.makedirs(remove_vo_model_dir, exist_ok=True)
+    urls = ["https://github.com/TRvlvr/model_repo/releases/download/all_public_uvr_models/model_bs_roformer_ep_317_sdr_12.9755.ckpt",
+            "https://raw.githubusercontent.com/ZFTurbo/Music-Source-Separation-Training/main/configs/viperx/model_bs_roformer_ep_317_sdr_12.9755.yaml"]
+    for url in urls:
+        file_name = url.split("/")[-1]  # Extract file name from URL
+        file_path = os.path.join(remove_vo_model_dir, file_name)
+        response = requests.get(url, stream=True)
+        if response.status_code == 200:
+            with open(file_path, "wb") as f:
+                for chunk in response.iter_content(chunk_size=8192):  # Use a chunk size of 8 KB
+                    f.write(chunk)
+            print(f"File downloaded successfully and saved to {file_path}")
+        else:
+            print(f"Failed to download the file. Status code: {response.status_code}")
 
-os.makedirs("pretrained/v2a/mmaudio", exist_ok=True)
+    os.makedirs("pretrained/v2a/mmaudio", exist_ok=True)
 
-# repo_local_path = "pretrained/mllm/VideoLLaMA2.1-7B-AV-CoT"
+else:
+    repo_local_path = "pretrained/mllm/VideoLLaMA2.1-7B-AV-CoT"
+    
+    
+if torch.cuda.is_available():
+    os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+    load_8bit = True
+else:
+    load_8bit = False
+    
+
 @torch.inference_mode()
 def init_pipeline(step0_model_dir=repo_local_path,
                   step1_mode='mmaudio_medium_44k',
@@ -46,7 +58,6 @@ def init_pipeline(step0_model_dir=repo_local_path,
                   step2_mode='cot',
                   step3_mode='bs_roformer',):
     
-    load_8bit = torch.cuda.is_available()
     pipeline = Pipeline(
         step0_model_dir=step0_model_dir, 
         step1_mode=step1_mode, 
