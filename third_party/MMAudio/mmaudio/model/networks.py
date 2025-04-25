@@ -166,8 +166,10 @@ class MMAudio(nn.Module):
                                           self._clip_seq_len,
                                           device=self.device)
 
-        self.latent_rot = nn.Buffer(latent_rot, persistent=False)
-        self.clip_rot = nn.Buffer(clip_rot, persistent=False)
+        # self.latent_rot = nn.Buffer(latent_rot, persistent=False)
+        # self.clip_rot = nn.Buffer(clip_rot, persistent=False)
+        self.register_buffer("latent_rot", latent_rot, persistent=False)
+        self.register_buffer("clip_rot", clip_rot, persistent=False)
 
     def update_seq_lengths(self, latent_seq_len: int, clip_seq_len: int, sync_seq_len: int) -> None:
         self._latent_seq_len = latent_seq_len

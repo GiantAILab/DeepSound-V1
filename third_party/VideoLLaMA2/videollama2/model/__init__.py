@@ -63,8 +63,11 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
         kwargs['device_map'] = {"": device}
 
     if load_8bit:
-        kwargs['load_in_8bit'] = True
+        # kwargs['load_in_8bit'] = True
+        kwargs['quantization_config'] = BitsAndBytesConfig(
+            load_in84bit=True,)
     elif load_4bit:
+        print("4444444444444444444444444444444444444")
         # NOTE: High-version Transformers will report: """ValueError: You can't pass `load_in_4bit`or `load_in_8bit` as a kwarg when passing `quantization_config` argument at the same time."""
         # kwargs['load_in_4bit'] = True
         kwargs['quantization_config'] = BitsAndBytesConfig(
@@ -73,9 +76,9 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
             bnb_4bit_use_double_quant=True,
             bnb_4bit_quant_type='nf4'
         )
+        print("aaaaaaaaaaaaaaaaaaaaaaaaaa")
     else:
-        # kwargs['torch_dtype'] = torch.float16
-        kwargs['torch_dtype'] = torch.bfloat16
+        kwargs['torch_dtype'] = torch.float16
 
     if use_flash_attn:
         kwargs['attn_implementation'] = 'flash_attention_2'
@@ -180,7 +183,18 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
         elif model_type in ['videollama2_mixtral']:
             model = Videollama2MixtralForCausalLM.from_pretrained(model_path, low_cpu_mem_usage=True, config=config, **kwargs)
         elif model_type in ['videollama2_qwen2']:
+            print("config: ", config)
+            print("kwargs: ", kwargs)
             model = Videollama2Qwen2ForCausalLM.from_pretrained(model_path, low_cpu_mem_usage=True, config=config, **kwargs)
+            print("222222222222222222222222222222222222222222222")
+            # torch.save(model.state_dict(), "model_int4.pt")
+            # torch.save(model, "model_int4_full.pt")
+            # from transformers.utils import logging
+            # logging.set_verbosity_error()
+            # model.save_pretrained("pretrained/mllm/VideoLLaMA2.1-7B-AV-CoT-int4", safe_serialization=False)
+            # print("33333333333333333333333333333333")
+            # tokenizer.save_pretrained("pretrained/mllm/VideoLLaMA2.1-7B-AV-CoT-int4", safe_serialization=False)
+            # print("4444444444444444444444444444444444")
         elif model_type in ['videollama2_gemma2']:
             model = Videollama2Gemma2ForCausalLM.from_pretrained(model_path, low_cpu_mem_usage=True, config=config, **kwargs)
         elif model_type in ['videollama2_phi3']:
@@ -198,6 +212,48 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
 
     processor = None
 
+    if "videollama" in model_type:
+        vision_tower = model.get_vision_tower()
+        if not vision_tower.is_loaded:
+            vision_tower.load_model()
+        vision_tower.to(device=device, dtype=torch.float16)
+        # NOTE: videollama2 adopts the same processor for processing image and video.
+        processor = vision_tower.image_processor
+
+    if hasattr(model.config, "max_sequence_length"):
+        context_len = model.config.max_sequence_length
+    else:
+        context_len = 2048
+
+    return tokenizer, model, processor, context_len
+
+
+
+
+
+def load_pretrained_model_new(model_path, device_map="auto", device="cuda", use_flash_attn=False, **kwargs):
+    if 'token' in kwargs:
+        token = kwargs['token']
+    else:
+        token = None
+    
+    kwargs = {"device_map": device_map, **kwargs}
+    if device != "cuda":
+        kwargs['device_map'] = {"": device}
+    if use_flash_attn:
+        kwargs['attn_implementation'] = 'flash_attention_2'
+    kwargs['torch_dtype'] = torch.float16
+
+    config = AutoConfig.from_pretrained(model_path)
+    # judge model type
+    model_type = config.model_type
+    tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=False, token=token)
+    print("config: ", config)
+    print("kwargs: ", kwargs)
+    model = Videollama2Qwen2ForCausalLM.from_pretrained(model_path, low_cpu_mem_usage=True, config=config, **kwargs)
+    print("222222222222222222222222222222222222222222222")
+
+    processor = None
     if "videollama" in model_type:
         vision_tower = model.get_vision_tower()
         if not vision_tower.is_loaded:

@@ -6,7 +6,7 @@ from functools import partial
 
 import torch
 
-from .model import load_pretrained_model
+from .model import load_pretrained_model, load_pretrained_model_new
 from .mm_utils import process_image, process_video, tokenizer_multimodal_token, get_model_name_from_path, KeywordsStoppingCriteria, process_audio_file
 from .constants import NUM_FRAMES, DEFAULT_IMAGE_TOKEN, DEFAULT_VIDEO_TOKEN, MODAL_INDEX_MAP, DEFAULT_AUDIO_TOKEN
 
@@ -16,6 +16,7 @@ def model_init(model_path=None, load_8bit=False, load_4bit=False, **kwargs):
     model_path = "DAMO-NLP-SG/VideoLLaMA2-7B" if model_path is None else model_path
     model_name = get_model_name_from_path(model_path)
     tokenizer, model, processor, context_len = load_pretrained_model(model_path, None, model_name, device=DEVICE, load_8bit=load_8bit, load_4bit=load_4bit, **kwargs)
+    # tokenizer, model, processor, context_len = load_pretrained_model_new(model_path, device=DEVICE, **kwargs)
 
     if tokenizer.pad_token is None and tokenizer.unk_token is not None:
         tokenizer.pad_token = tokenizer.unk_token
@@ -61,9 +62,15 @@ def mm_infer(image_or_video, instruct, model, tokenizer, modal='video', **kwargs
         tensor = None
     else:
         if isinstance(image_or_video, dict):
-            tensor = {k: v.half().cuda() for k, v in image_or_video.items()}
+            if DEVICE == 'cuda':
+                tensor = {k: v.half().cuda() for k, v in image_or_video.items()}
+            else:
+                tensor = {k: v.half().cpu() for k, v in image_or_video.items()}  
         else:
-            tensor = image_or_video.half().cuda() 
+            if DEVICE == 'cuda':
+                tensor = image_or_video.half().cuda()
+            else:
+                tensor = image_or_video.half().cpu()
         tensor = [(tensor, modal)]
 
     # 2. text preprocess (tag process & generate prompt).
@@ -88,9 +95,14 @@ def mm_infer(image_or_video, instruct, model, tokenizer, modal='video', **kwargs
 
     message = system_message + message
     prompt = tokenizer.apply_chat_template(message, tokenize=False, add_generation_prompt=True)
-
-    input_ids = tokenizer_multimodal_token(prompt, tokenizer, modal_token, return_tensors='pt').unsqueeze(0).long().cuda()
-    attention_masks = input_ids.ne(tokenizer.pad_token_id).long().cuda()
+    
+    if DEVICE == 'cuda':
+        input_ids = tokenizer_multimodal_token(prompt, tokenizer, modal_token, return_tensors='pt').unsqueeze(0).long().cuda()
+        attention_masks = input_ids.ne(tokenizer.pad_token_id).long().cuda()
+    else:
+        input_ids = tokenizer_multimodal_token(prompt, tokenizer, modal_token, return_tensors='pt').unsqueeze(0).long().cpu()
+        attention_masks = input_ids.ne(tokenizer.pad_token_id).long().cpu()
+        
 
     # 3. generate response according to visual signals and prompts. 
     keywords = [tokenizer.eos_token]

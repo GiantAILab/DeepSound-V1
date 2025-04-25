@@ -21,10 +21,16 @@ class TimestepEmbedder(nn.Module):
         assert dim % 2 == 0, 'dim must be even.'
 
         with torch.autocast('cuda', enabled=False):
-            self.freqs = nn.Buffer(
+            # self.freqs = nn.Buffer(
+            #     1.0 / (10000**(torch.arange(0, frequency_embedding_size, 2, dtype=torch.float32) /
+            #                    frequency_embedding_size)),
+            #     persistent=False)
+            self.register_buffer(
+                "freqs",
                 1.0 / (10000**(torch.arange(0, frequency_embedding_size, 2, dtype=torch.float32) /
-                               frequency_embedding_size)),
-                persistent=False)
+                            frequency_embedding_size)),
+                persistent=False
+            )
             freq_scale = 10000 / max_period
             self.freqs = freq_scale * self.freqs
 

@@ -75,3 +75,4 @@ keyboard
 ml_collections
 pytorchvideo
 numpy
+timm

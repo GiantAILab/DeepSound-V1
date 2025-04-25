@@ -38,20 +38,22 @@ for url in urls:
 
 os.makedirs("pretrained/v2a/mmaudio", exist_ok=True)
 
-
+# repo_local_path = "pretrained/mllm/VideoLLaMA2.1-7B-AV-CoT"
 @torch.inference_mode()
 def init_pipeline(step0_model_dir=repo_local_path,
                   step1_mode='mmaudio_medium_44k',
                   step2_model_dir=repo_local_path,
                   step2_mode='cot',
                   step3_mode='bs_roformer',):
-
+    
+    load_8bit = torch.cuda.is_available()
     pipeline = Pipeline(
         step0_model_dir=step0_model_dir, 
         step1_mode=step1_mode, 
         step2_model_dir=step2_model_dir,
         step2_mode=step2_mode,
         step3_mode=step3_mode,
+        load_8bit=load_8bit,  # 如果 GPU环境下就用int8
     )
 
     return pipeline
@@ -60,7 +62,7 @@ def init_pipeline(step0_model_dir=repo_local_path,
 @torch.inference_mode()
 def video_to_audio(pipeline: Pipeline, video_input, output_dir, mode='s4', postp_mode='neg', 
                    prompt='', negative_prompt='', duration=10, skip_final_video=False):
-    st_infer = time.time()
+    # st_infer = time.time()
     step_results = pipeline.run_for_show(video_input=video_input, 
                                 output_dir=output_dir,
                                 mode=mode,
@@ -93,7 +95,7 @@ def video_to_audio(pipeline: Pipeline, video_input, output_dir, mode='s4', postp
             step_results["final_video_path"] = final_video_path
 
     
-    et_infer = time.time()
+    # et_infer = time.time()
     # print(f"Inference time: {et_infer - st_infer:.2f} s.")
     return step_results
 
@@ -102,7 +104,7 @@ def video_to_audio(pipeline: Pipeline, video_input, output_dir, mode='s4', postp
 def main():
     setup_eval_logging()
     video_input = "aa.mp4"
-    output_dir = "output"
+    output_dir = "output_tttest"
     os.makedirs(output_dir, exist_ok=True)
     
     pipeline = init_pipeline()
