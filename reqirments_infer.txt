@@ -24,7 +24,7 @@ soundfile
 av
 ###############
 accelerate==0.26.1
-bitsandbytes==0.43.0
+bitsandbytes
 loralib
 prodigyopt
 tensorboard
