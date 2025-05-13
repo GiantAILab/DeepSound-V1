@@ -70,6 +70,9 @@ Overall process:
 
 https://github.com/user-attachments/assets/40767fd0-0d77-4286-9644-b5d66412652e
 
+
+https://github.com/user-attachments/assets/a4e34ae2-4b8f-437d-9326-85851443805f
+
 <!-- Direct result:
 
 https://github.com/user-attachments/assets/a0e1ff4d-3bf8-47a3-9b35-a28c5654610d
