@@ -5,7 +5,7 @@ Official code for DeepSound-V1 -->
 <div align="center">
 <p align="center">
   <h2>DeepSound-V1</h2>
-  <a href="https://arxiv.org/abs/2503.22208">Paper</a> | <a href="https://lym0302.github.io/DeepSound-V1/">Webpage</a>| <a href="https://huggingface.co/spaces/lym0302/DeepSound-V1"> Huggingface Demo</a>| <a href="https://huggingface.co/spaces/lym0302/DeepSound-V1"> Models </a> |<a href="https://huggingface.co/datasets/lym0302/DeepSound-V1"> Dataset</a> | <a href="https://colab.research.google.com/drive/1FcsW9lyu3B0SpmZXj3FYtmhqesXdPU9G?usp=sharing">Colab Demo</a> | <a href="https://github.com/lym0302/DeepSound-V1">Replicate Demo</a>
+  <a href="https://arxiv.org/abs/2503.22208">Paper</a> | <a href="https://giantailab.github.io/DeepSound-V1/">Webpage</a>| <a href="https://huggingface.co/spaces/lym0302/DeepSound-V1"> Huggingface Demo</a>| <a href="https://huggingface.co/spaces/lym0302/DeepSound-V1"> Models </a> |<a href="https://huggingface.co/datasets/lym0302/DeepSound-V1"> Dataset</a> | <a href="https://colab.research.google.com/drive/1FcsW9lyu3B0SpmZXj3FYtmhqesXdPU9G?usp=sharing">Colab Demo</a> | <a href="https://github.com/lym0302/DeepSound-V1">Replicate Demo</a>
 </p>
 </div>
 
